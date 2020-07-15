@@ -13,8 +13,8 @@ WORKDIR app
 COPY . .
 
 # install pytorch, tensorflow from local archive
-RUN pip install wheel/tensorflow-2.2.0-cp37-cp37m-manylinux2010_x86_64.whl && \
-    pip install wheel/torch-1.5.0-cp37-cp37m-manylinux1_x86_64.whl
+RUN pip install wheels/tensorflow-2.2.0-cp37-cp37m-manylinux2010_x86_64.whl && \
+    pip install wheels/torch-1.5.0-cp37-cp37m-manylinux1_x86_64.whl
 
 COPY requirements.txt /tmp/requirements.txt
 RUN cat /tmp/requirements.txt | xargs -n 1 -L 1 pip3 install --no-cache-dir

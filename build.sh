@@ -4,7 +4,7 @@
 # Copyright (c) 2020 Loreto Parisi (loretoparisi at gmail dot com)
 
 # check wheels
-cd wheel
+cd wheels
 if [ -f "tensorflow-2.2.0-cp37-cp37m-manylinux2010_x86_64.whl" ]; then
     echo "tensorflow-2.2.0-cp37-cp37m-manylinux2010_x86_64.whl"
 else
