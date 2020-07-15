@@ -22,5 +22,5 @@ def get_emotion(text):
 res = get_emotion("i feel as if i havent blogged in ages are at least truly blogged i am doing an update cute") # Output: 'joy'
 print(res)
 
-get_emotion("i have a feeling i kinda lost my best friend") # Output: 'sadness'
+res = get_emotion("i have a feeling i kinda lost my best friend") # Output: 'sadness'
 print(res)
