@@ -28,7 +28,7 @@ To build experiments run
 ## How to run
 To run an experiment run
 ```bash
-./run.sh [experiment_name]
+./run.sh [experiment_name] [cache_dir_folder]
 ```
 
 where `experiment_name` is among the following supported experiment names:
@@ -39,6 +39,7 @@ The following experiments are supported
 - sentiment - sentiment analysis
 - summarization - text summarization
 
+and `cache_dir_folder` is the directorty where to cache models files. See later about this.
 
 ## Depencendies
 Dependecies are defined in the `requirements.txt` file and currently are
@@ -70,3 +71,13 @@ Check the downloadable wheels from pypi here:
 
 - tensorflow, https://pypi.org/project/tensorflow/#files
 - pytorch, https://pypi.org/project/torch/#files 
+
+
+## Models files
+Where are models files saved? Models files are typically big. It's preferable to save them to a custom folder like an external HDD of a shared disk. For this reason a docker environment variable `cache_dir` can specified at run:
+
+```bash
+./run.sh emotions models/
+```
+
+the `models` folder will be assigned to the `cache_dir` variable to be used as default alternative location to download pretrained models. A `os.getenv("cache_dir")` will be used to retrieve the environemnt variable in the code.

@@ -9,7 +9,7 @@ needle=$1
 cache_dir=$2
 
 if [ -z "$cache_dir" ]; then
-    cache_dir=model
+    cache_dir=models
 fi
 
 if [[ " $haystack " =~ .*\ $needle\ .* ]]; then
