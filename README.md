@@ -41,8 +41,8 @@ The following experiments are supported
 
 and `cache_dir_folder` is the directorty where to cache models files. See later about this.
 
-## Depencendies
-Dependecies are defined in the `requirements.txt` file and currently are
+## Dependencies
+Dependencies are defined in the `requirements.txt` file and currently are
 
 ```bash
 tensorflow==2.2.0
