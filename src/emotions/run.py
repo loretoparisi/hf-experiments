@@ -1,17 +1,23 @@
 import os
+import torch
+
 from transformers import AutoTokenizer, AutoModelWithLMHead
 '''
 FutureWarning: The class `AutoModelWithLMHead` is deprecated and will be removed in a future version. 
   Please use `AutoModelForCausalLM` for causal language models, `AutoModelForMaskedLM` for masked language models and `AutoModelForSeq2SeqLM` for encoder-decoder models.
 '''
-tokenizer = AutoTokenizer.from_pretrained("mrm8488/t5-base-finetuned-emotion")
 
-model = AutoModelWithLMHead.from_pretrained(
-    "mrm8488/t5-base-finetuned-emotion", cache_dir=os.getenv("cache_dir", "model"))
+torch_device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+tokenizer = AutoTokenizer.from_pretrained("mrm8488/t5-base-finetuned-emotion",
+  cache_dir=os.getenv("cache_dir", "model"))
+
+model = AutoModelWithLMHead.from_pretrained("mrm8488/t5-base-finetuned-emotion", 
+  cache_dir=os.getenv("cache_dir", "model")).to(torch_device)
 
 def get_emotion(text):
-  input_ids = tokenizer.encode(text + '</s>', return_tensors='pt')
-
+  input_ids = tokenizer.encode(text + '</s>', return_tensors='pt').to(torch_device)
+  
   output = model.generate(input_ids=input_ids,
                max_length=2)
 
