@@ -1,4 +1,4 @@
-tensorflow==2.2.1
+tensorflow==2.4.0
 torch==1.5.0
 transformers
 soundfile
