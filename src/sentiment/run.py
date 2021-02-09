@@ -1,3 +1,7 @@
+# hf-experiments
+# @author Loreto Parisi (loretoparisi at gmail dot com)
+# Copyright (c) 2020-2021 Loreto Parisi (loretoparisi at gmail dot com)
+
 import os
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 

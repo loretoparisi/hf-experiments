@@ -14,6 +14,7 @@ Machine Learning Experiments with Hugging Face 🤗
 ├── src
 │   ├── emotions
 │   ├── sentiment
+│   ├── asr
 │   └── summarization
 └── wheels
 └── models
@@ -47,7 +48,7 @@ Dependencies are defined in the `requirements.txt` file and currently are
 ```bash
 tensorflow==2.2.0
 torch==1.5.0
-transformers==3.0.2
+transformers
 ```
 These will install a number of dependant libraries that can be found in the `install.log`.
 

@@ -1,5 +1,5 @@
 #
-# Album Coverart Similarity Search
+# hf-experiments
 # @author Loreto Parisi (loretoparisi at gmail dot com)
 # Copyright (c) 2020 Loreto Parisi (loretoparisi at gmail dot com)
 #
