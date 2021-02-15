@@ -13,8 +13,8 @@ if [ -z "$cache_dir" ]; then
 fi
 
 if [[ " $haystack " =~ .*\ $needle\ .* ]]; then
-    docker run -e cache_dir=$cache_dir -v $(pwd):/app --rm -it hfexperiments python src/$1/run.py
+    docker run -e cache_dir=$cache_dir -v $(pwd):/app --rm -it hfexperiments python src/${needle}/run.py
 else
-    echo "experiment $1 is not supported, please open a new issue here https://github.com/loretoparisi/hf-experiments/issues/new"
+    echo "experiment ${needle} is not supported yet, please open a new [Feature Request: ${needle}] here https://github.com/loretoparisi/hf-experiments/issues/new"
 fi
 

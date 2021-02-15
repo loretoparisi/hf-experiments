@@ -14,7 +14,7 @@ Machine Learning Experiments with Hugging Face 🤗
 ├── src
 │   ├── emotions
 │   ├── sentiment
-│   ├── asr
+│   ├── asr :new:
 │   └── summarization
 └── wheels
 └── models
@@ -46,11 +46,19 @@ and `cache_dir_folder` is the directorty where to cache models files. See later 
 Dependencies are defined in the `requirements.txt` file and currently are
 
 ```bash
+transformers
+soundfile
+datasets
+```
+
+These will install a number of dependant libraries that can be found in the `install.log`. Please note that there are two missing dependencies here
+
+```
 tensorflow==2.2.0
 torch==1.5.0
-transformers
 ```
-These will install a number of dependant libraries that can be found in the `install.log`.
+
+Why? Check later chapter.
 
 ## Wheels? What's that?
 I'm using install from local wheels if avaiable. This will speed up build and tests, avoding to transfer several times data over the internet:
