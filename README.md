@@ -15,6 +15,7 @@ Machine Learning Experiments with Hugging Face 🤗
 │   ├── emotions
 │   ├── sentiment
 │   ├── asr :new:
+│   ├── translation :new:
 │   └── summarization
 └── wheels
 └── models
@@ -39,6 +40,8 @@ The `experiment_name` field is among the following supported experiment names:
 The following experiments are supported
 - emotions - emotions detection
 - sentiment - sentiment analysis
+- asr - automatic speech recognition :new:
+- translation - text multiple languages translation :new:
 - summarization - text summarization
 
 and `cache_dir_folder` is the directorty where to cache models files. See later about this.
@@ -63,8 +66,9 @@ Dependencies are defined in the `requirements.txt` file and currently are
 
 ```bash
 torch
-transformers
+tensorflow
 keras
+transformers
 soundfile
 ```
 
