@@ -32,7 +32,8 @@ To run an experiment run
 ./run.sh [experiment_name] [cache_dir_folder]
 ```
 
-where `experiment_name` is among the following supported experiment names:
+
+The `experiment_name` field is among the following supported experiment names:
 
 ## Experiments
 The following experiments are supported
@@ -42,45 +43,32 @@ The following experiments are supported
 
 and `cache_dir_folder` is the directorty where to cache models files. See later about this.
 
+## How to debug
+To debug the code, without running any experiment
+```bash
+./debug.sh
+root@d2f0e8a5ec76:/app# 
+```
+This will enter the running image `hfexperiments`. You can now run python scripts manually, like
+
+```
+root@d2f0e8a5ec76:/app# python src/asr/run.py
+```
+
+NOTE.
+For preconfigured experiments, please run the `run.py` script from the main folder `/app`, as the cache directories are following that path, so like `python src/asr/run.py`
+
 ## Dependencies
 Dependencies are defined in the `requirements.txt` file and currently are
 
 ```bash
+torch
 transformers
+keras
 soundfile
-datasets
 ```
 
-These will install a number of dependant libraries that can be found in the `install.log`. Please note that there are two missing dependencies here
-
-```
-tensorflow==2.2.0
-torch==1.5.0
-```
-
-Why? Check later chapter.
-
-## Wheels? What's that?
-I'm using install from local wheels if avaiable. This will speed up build and tests, avoding to transfer several times data over the internet:
-
-```bash
-Collecting torch==1.5.0
-  Downloading https://files.pythonhosted.org/packages/76/58/668ffb25215b3f8231a550a227be7f905f514859c70a65ca59d28f9b7f60/torch-1.5.0-cp37-cp37m-manylinux1_x86_64.whl (752.0MB)
-```
-  
-I download once the big wheels for `pytorch` (752 MB) and `tensorflow` ((516.2 MB) in the `wheels` folder and check for them before building:
-
-```bash
-└── wheels
-    ├── tensorflow-2.2.0-cp37-cp37m-manylinux2010_x86_64.whl
-    └── torch-1.5.0-cp37-cp37m-manylinux1_x86_64.whl
-```
-
-Check the downloadable wheels from pypi here:
-
-- tensorflow, https://pypi.org/project/tensorflow/#files
-- pytorch, https://pypi.org/project/torch/#files 
-
+These will install a number of dependant libraries that can be found in the `install.log`.
 
 ## Models files
 Where are models files saved? Models files are typically big. It's preferable to save them to a custom folder like an external HDD of a shared disk. For this reason a docker environment variable `cache_dir` can specified at run:

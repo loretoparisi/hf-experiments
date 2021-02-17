@@ -1,3 +1,5 @@
+torch
+tensorflow
+keras
 transformers
 soundfile
-datasets
