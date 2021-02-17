@@ -78,3 +78,7 @@ Where are models files saved? Models files are typically big. It's preferable to
 ```
 
 the `models` folder will be assigned to the `cache_dir` variable to be used as default alternative location to download pretrained models. A `os.getenv("cache_dir")` will be used to retrieve the environemnt variable in the code.
+
+## Contributors
+
+- [shoegazerstella](https://github.com/shoegazerstella)
