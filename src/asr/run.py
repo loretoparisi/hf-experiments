@@ -56,7 +56,7 @@ for segmentation in segmentations:
 
         start = round(s[1], 3)
         end = round(s[2], 3)
-        duration = end-start
+        duration = round(end-start, 3)
 
         res = {}
         res['start'] = start
