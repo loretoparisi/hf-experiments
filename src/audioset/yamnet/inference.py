@@ -17,7 +17,7 @@
 from __future__ import division, print_function
 
 import sys
-
+import json, codecs
 import numpy as np
 import resampy
 import soundfile as sf
@@ -58,7 +58,17 @@ def main(argv):
     print(file_name, ':\n' +
           '\n'.join('  {:12s}: {:.3f}'.format(yamnet_classes[i], prediction[i])
                     for i in top5_i))
-
+    
+    # print all classes
+    b = prediction.tolist() # nested lists with same data, indices
+    pred = []
+    for (i,cls) in enumerate(yamnet_classes):
+      item={}
+      item['label']=cls
+      item['value']=round(b[i], 6)
+      pred.append(item)
+    pred = sorted(pred, key=lambda x: x['value'], reverse=True)
+    json.dump(pred, codecs.open('./event.json', 'w', encoding='utf-8'), separators=(',', ':'), sort_keys=True, indent=4) ### this saves the array in .json format
 
 if __name__ == '__main__':
   main(sys.argv[1:])
