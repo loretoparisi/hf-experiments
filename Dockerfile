@@ -24,5 +24,6 @@ RUN cat /tmp/requirements.txt | xargs -n 1 -L 1 pip3 install --no-cache-dir
 
 # app-wide python requriments
 RUN pip3 install -r src/asr/requirements.txt
+RUN pip3 install -r src/translation/requirements.txt
 
 CMD ["bash"]
