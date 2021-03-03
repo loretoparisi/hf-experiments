@@ -4,15 +4,15 @@
 
 import os
 from transformers import pipeline
-from transformers import AutoTokenizer, AutoModel
+from transformers import AutoTokenizer, AutoModelForQuestionAnswering
 
-question = 'Marco Aurelio era un imperatore romano che praticava lo stoicismo come filosofia di vita .'
-context = 'Manuel Romero è colaborando attivamente con HF / trasformatori per il trader del poder de las últimas técnicas di procesamiento de lenguaje natural al idioma español'
+question = 'Quale filosofia seguì Marco Aurelio ?'
+context = 'Marco Aurelio era un imperatore romano che praticava lo stoicismo come filosofia di vita .'
 
 tokenizer = AutoTokenizer.from_pretrained(
     'mrm8488/bert-italian-finedtuned-squadv1-it-alfa',
     cache_dir=os.getenv("cache_dir", "model"))
-model = AutoModel.from_pretrained(
+model = AutoModelForQuestionAnswering.from_pretrained(
     'mrm8488/bert-italian-finedtuned-squadv1-it-alfa',
     cache_dir=os.getenv("cache_dir", "model"))
 
@@ -30,14 +30,19 @@ print(out)
 tokenizer = AutoTokenizer.from_pretrained(
     'mrm8488/umberto-wikipedia-uncased-v1-finetuned-squadv1-it',
     cache_dir=os.getenv("cache_dir", "model"))
-umberto = AutoModel.from_pretrained(
+umberto = AutoModelForQuestionAnswering.from_pretrained(
     'mrm8488/umberto-wikipedia-uncased-v1-finetuned-squadv1-it',
     cache_dir=os.getenv("cache_dir", "model"))
 
-out = nlp_qa_umberto = pipeline(
+nlp_qa_umberto = pipeline(
     'question-answering',
     tokenizer=tokenizer,
     model=umberto)
+
+out = nlp_qa_umberto({
+    'question': question,
+    'context': context
+})
 print(out)
 
 

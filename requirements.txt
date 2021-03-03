@@ -1,6 +1,6 @@
 torch
 tensorflow
 keras
-transformers
+transformers>=4.3.3
 sentencepiece
 soundfile
