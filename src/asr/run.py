@@ -93,6 +93,24 @@ for segmentation in segmentations:
             t = tokenizer.batch_decode(predicted_ids)
             res['transcription'] = t
 
+            # create vocab and inverse_vocab
+            vocab = tokenizer.get_vocab()
+            inverse_vocab = {}
+            for k in vocab.keys():
+                inverse_vocab[vocab[k]] = k
+
+            # sync generation
+            step = 0.02
+            syncs = []
+            for idx, pred in enumerate(predicted_ids[0]):
+                this_token = int(pred) # check if this is ok
+                this_char = inverse_vocab[this_token]
+                prec_char = inverse_vocab[int(predicted_ids[0][idx-1])]
+                if this_token > 3:
+                    if len(syncs)==0 or this_char!=prec_char:
+                        syncs.append([round(idx*step, 2), this_char if this_token!=4 else ' '])
+            print(syncs)
+
         transcription.append(res)
 
     result['transcription'] = transcription
