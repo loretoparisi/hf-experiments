@@ -27,23 +27,23 @@ out = nlp_qa_bert({
 })
 print(out)
 
-tokenizer = AutoTokenizer.from_pretrained(
-    'mrm8488/umberto-wikipedia-uncased-v1-finetuned-squadv1-it',
-    cache_dir=os.getenv("cache_dir", "model"))
-umberto = AutoModelForQuestionAnswering.from_pretrained(
-    'mrm8488/umberto-wikipedia-uncased-v1-finetuned-squadv1-it',
-    cache_dir=os.getenv("cache_dir", "model"))
+# tokenizer = AutoTokenizer.from_pretrained(
+#     'mrm8488/umberto-wikipedia-uncased-v1-finetuned-squadv1-it',
+#     cache_dir=os.getenv("cache_dir", "model"))
+# umberto = AutoModelForQuestionAnswering.from_pretrained(
+#     'mrm8488/umberto-wikipedia-uncased-v1-finetuned-squadv1-it',
+#     cache_dir=os.getenv("cache_dir", "model"))
 
-nlp_qa_umberto = pipeline(
-    'question-answering',
-    tokenizer=tokenizer,
-    model=umberto)
+# nlp_qa_umberto = pipeline(
+#     'question-answering',
+#     tokenizer=tokenizer,
+#     model=umberto)
 
-out = nlp_qa_umberto({
-    'question': question,
-    'context': context
-})
-print(out)
+# out = nlp_qa_umberto({
+#     'question': question,
+#     'context': context
+# })
+# print(out)
 
 
 
