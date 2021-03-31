@@ -2,10 +2,6 @@
 # @author Loreto Parisi (loretoparisi at gmail dot com)
 # Copyright (c) 2021 Loreto Parisi (loretoparisi at gmail dot com)
 
-import os
-import torch
-from transformers import AutoTokenizer, AutoModel
-
 import pickle
 from genre.trie import Trie
 
@@ -198,7 +194,6 @@ micro_f1 = get_micro_f1(guess_entities, gold_entities)
 macro_p = get_macro_precision(guess_entities, gold_entities)
 macro_r = get_macro_recall(guess_entities, gold_entities)
 macro_f1 = get_macro_f1(guess_entities, gold_entities)
-
 
 print(
    "micro_p={:.4f} micro_r={:.4f}, micro_f1={:.4f}, macro_p={:.4f}, macro_r={:.4f}, macro_f1={:.4f}".format(
