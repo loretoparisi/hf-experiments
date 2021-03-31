@@ -48,6 +48,7 @@ guess_entities = [
     for x in e
 ]
 
+# Finally, we use genre.utils functions to compute scores.
 micro_p = get_micro_precision(guess_entities, gold_entities)
 micro_r = get_micro_recall(guess_entities, gold_entities)
 micro_f1 = get_micro_f1(guess_entities, gold_entities)
