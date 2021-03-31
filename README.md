@@ -43,6 +43,7 @@ The following experiments are supported
 - asr - automatic speech recognition :new:
 - translation - text multiple languages translation :new:
 - summarization - text summarization
+- GENRE - Generative ENtity REtrieval :new:
 
 and `cache_dir_folder` is the directorty where to cache models files. See later about this.
 
