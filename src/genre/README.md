@@ -75,6 +75,8 @@ $ python src/genre/entitylinking.py
 
 [{'text': 'In 1921, { Einstein } [ Albert Einstein ] received a Nobel Prize.', 'logprob': tensor(-1.4009)}, {'text': 'In 1921, Einstein received a { Nobel Prize } [ Nobel Prize in Physics ].', 'logprob': tensor(-1.8266)}, {'text': 'In 1921, Einstein received a { Nobel Prize } [ Nobel Prize in Medicine ].', 'logprob': tensor(-2.2954)}, {'text': 'In 1921, Einstein received a Nobel Prize.', 'logprob': tensor(-3.4495)}, {'text': 'In 1921, Einstein received a Nobel Prize.', 'logprob': tensor(-100000000.)}]
 
+In 1921, [Einstein](https://en.wikipedia.org/wiki/Albert_Einstein) received a Nobel Prize.
+
 [[(9, 8, 'Albert_Einstein')]]
 ```
 

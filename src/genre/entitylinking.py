@@ -14,6 +14,7 @@ from genre.hf_model import GENRE
 # Example: End-to-End Entity Linking
 from genre.entity_linking import get_end_to_end_prefix_allowed_tokens_fn_hf as get_prefix_allowed_tokens_fn
 from genre.utils import get_entity_spans_hf as get_entity_spans
+from genre.utils import get_markdown
 
 model = GENRE.from_pretrained("../models/hf_e2e_entity_linking_aidayago").eval()
 
@@ -109,4 +110,4 @@ entity_spans = get_entity_spans(
         "Nobel Prize": ["Nobel Prize in Physics", "Nobel Prize in Medicine"],
     }
 )
-print(entity_spans)
+print(get_markdown(sentences, entity_spans)[0])
