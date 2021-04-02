@@ -5,6 +5,10 @@
 import os
 import pickle
 from genre.trie import Trie
+from genre.hf_model import GENRE
+from genre.entity_linking import get_end_to_end_prefix_allowed_tokens_fn_hf as get_prefix_allowed_tokens_fn
+from genre.utils import get_entity_spans_hf as get_entity_spans
+from genre.utils import get_markdown
 
 cache_dir = os.getenv("cache_dir", "../../models")
 
@@ -12,14 +16,8 @@ cache_dir = os.getenv("cache_dir", "../../models")
 with open(os.path.join(cache_dir,"kilt_titles_trie_dict.pkl"), "rb") as f:
     trie = Trie.load_from_dict(pickle.load(f))
 
-from genre.hf_model import GENRE
-
 # Example: End-to-End Entity Linking
-from genre.entity_linking import get_end_to_end_prefix_allowed_tokens_fn_hf as get_prefix_allowed_tokens_fn
-from genre.utils import get_entity_spans_hf as get_entity_spans
-from genre.utils import get_markdown
-
-model = GENRE.from_pretrained("../models/hf_e2e_entity_linking_aidayago").eval()
+model = GENRE.from_pretrained(os.path.join(cache_dir,"hf_e2e_entity_linking_aidayago")).eval()
 
 # get the prefix_allowed_tokens_fn with the only constraints to annotate the original sentence (i.e., no other constrains on mention nor candidates)
 # use .sample to make predictions constraining using prefix_allowed_tokens_fn

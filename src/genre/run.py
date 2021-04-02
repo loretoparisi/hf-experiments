@@ -5,6 +5,7 @@
 import os
 import pickle
 from genre.trie import Trie
+from genre.hf_model import GENRE
 
 cache_dir = os.getenv("cache_dir", "../../models")
 
@@ -12,10 +13,8 @@ cache_dir = os.getenv("cache_dir", "../../models")
 with open(os.path.join(cache_dir,"kilt_titles_trie_dict.pkl"), "rb") as f:
     trie = Trie.load_from_dict(pickle.load(f))
 
-from genre.hf_model import GENRE
-
 # Example: Entity Disambiguation
-model = GENRE.from_pretrained("../models/hf_entity_disambiguation_aidayago").eval()
+model = GENRE.from_pretrained(os.path.join(cache_dir,"hf_entity_disambiguation_aidayago")).eval()
 
 sentences = ["Einstein was a [START_ENT] German [END_ENT] physicist."]
 
