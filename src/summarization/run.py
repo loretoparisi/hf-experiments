@@ -7,10 +7,10 @@ import torch
 from transformers import AutoTokenizer, AutoModel
 
 tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn", 
-    cache_dir=os.getenv("cache_dir", "model"))
+    cache_dir=os.getenv("cache_dir", "../../models"))
 
 model = AutoModel.from_pretrained("facebook/bart-large-cnn", 
-    cache_dir=os.getenv("cache_dir", "model"))
+    cache_dir=os.getenv("cache_dir", "../../models"))
 
 LONG_BORING_TENNIS_ARTICLE = """
  Andy Murray  came close to giving himself some extra preparation time for his w

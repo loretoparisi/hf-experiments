@@ -2,6 +2,7 @@
 # @author Loreto Parisi (loretoparisi at gmail dot com)
 # Copyright (c) 2021 Loreto Parisi (loretoparisi at gmail dot com)
 
+import os
 from genre.hf_model import GENRE
 from genre.entity_linking import get_end_to_end_prefix_allowed_tokens_fn_hf as get_prefix_allowed_tokens_fn
 from genre.utils import get_entity_spans_hf as get_entity_spans
@@ -15,12 +16,14 @@ from genre.utils import (
     get_macro_f1,
 )
 
-model = GENRE.from_pretrained("../models/hf_e2e_entity_linking_aidayago").eval()
+cache_dir = os.getenv("cache_dir", "../../models")
+
+model = GENRE.from_pretrained(os.path.join(cache_dir,"hf_e2e_entity_linking_aidayago")).eval()
 
 # Example: Custom End-to-End Entity Linking evaluation
 '''
-We have some useful function to evaluate End-to-End Entity Linking predictions. 
-Let's suppose we have a Dict[str, str] with document IDs and text as well as the gold entites spans as a List[Tuple[str, int, int, str]] containing documentID, start offset, length and entity title respectively.
+    We have some useful function to evaluate End-to-End Entity Linking predictions. 
+    Let's suppose we have a Dict[str, str] with document IDs and text as well as the gold entites spans as a List[Tuple[str, int, int, str]] containing documentID, start offset, length and entity title respectively.
 '''
 documents = {
     "id_0": "In 1921, Einstein received a Nobel Prize.",

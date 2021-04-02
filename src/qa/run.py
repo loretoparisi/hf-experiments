@@ -11,10 +11,10 @@ context = 'Marco Aurelio era un imperatore romano che praticava lo stoicismo com
 
 tokenizer = AutoTokenizer.from_pretrained(
     'mrm8488/bert-italian-finedtuned-squadv1-it-alfa',
-    cache_dir=os.getenv("cache_dir", "model"))
+    cache_dir=os.getenv("cache_dir", "../../models"))
 model = AutoModelForQuestionAnswering.from_pretrained(
     'mrm8488/bert-italian-finedtuned-squadv1-it-alfa',
-    cache_dir=os.getenv("cache_dir", "model"))
+    cache_dir=os.getenv("cache_dir", "../../models"))
 
 nlp_qa_bert = pipeline(
     'question-answering',
@@ -29,10 +29,10 @@ print(out)
 
 # tokenizer = AutoTokenizer.from_pretrained(
 #     'mrm8488/umberto-wikipedia-uncased-v1-finetuned-squadv1-it',
-#     cache_dir=os.getenv("cache_dir", "model"))
+#     cache_dir=os.getenv("cache_dir", "../../models"))
 # umberto = AutoModelForQuestionAnswering.from_pretrained(
 #     'mrm8488/umberto-wikipedia-uncased-v1-finetuned-squadv1-it',
-#     cache_dir=os.getenv("cache_dir", "model"))
+#     cache_dir=os.getenv("cache_dir", "../../models"))
 
 # nlp_qa_umberto = pipeline(
 #     'question-answering',

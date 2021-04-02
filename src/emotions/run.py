@@ -14,10 +14,10 @@ FutureWarning: The class `AutoModelWithLMHead` is deprecated and will be removed
 torch_device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 tokenizer = AutoTokenizer.from_pretrained("mrm8488/t5-base-finetuned-emotion",
-  cache_dir=os.getenv("cache_dir", "model"))
+  cache_dir=os.getenv("cache_dir", "../../models"))
 
 model = AutoModelWithLMHead.from_pretrained("mrm8488/t5-base-finetuned-emotion", 
-  cache_dir=os.getenv("cache_dir", "model")).to(torch_device)
+  cache_dir=os.getenv("cache_dir", "../../models")).to(torch_device)
 
 def get_emotion(text):
   input_ids = tokenizer.encode(text + '</s>', return_tensors='pt').to(torch_device)

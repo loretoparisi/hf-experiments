@@ -2,11 +2,14 @@
 # @author Loreto Parisi (loretoparisi at gmail dot com)
 # Copyright (c) 2021 Loreto Parisi (loretoparisi at gmail dot com)
 
+import os
 import pickle
 from genre.trie import Trie
 
+cache_dir = os.getenv("cache_dir", "../../models")
+
 # load the prefix tree (trie)
-with open("../models/kilt_titles_trie_dict.pkl", "rb") as f:
+with open(os.path.join(cache_dir,"kilt_titles_trie_dict.pkl"), "rb") as f:
     trie = Trie.load_from_dict(pickle.load(f))
 
 from genre.hf_model import GENRE

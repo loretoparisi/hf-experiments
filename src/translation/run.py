@@ -8,9 +8,10 @@ from transformers import MBartForConditionalGeneration, MBart50TokenizerFast
 
 article_en = "The head of the United Nations says there is no military solution in Syria"
 model = MBartForConditionalGeneration.from_pretrained(
-    "facebook/mbart-large-50-one-to-many-mmt", cache_dir=os.getenv("cache_dir", "model"))
+    "facebook/mbart-large-50-one-to-many-mmt", cache_dir=os.getenv("cache_dir", "../../models"))
 tokenizer = MBart50TokenizerFast.from_pretrained(
-    "facebook/mbart-large-50-one-to-many-mmt", src_lang="en_XX")
+    "facebook/mbart-large-50-one-to-many-mmt", src_lang="en_XX", 
+    cache_dir=os.getenv("cache_dir", "../../models"))
 
 model_inputs = tokenizer(article_en, return_tensors="pt")
 

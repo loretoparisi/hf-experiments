@@ -11,14 +11,14 @@ import json
 from segmenter import Segmenter
 
 # load model and tokenizer
-#tokenizer = Wav2Vec2Tokenizer.from_pretrained("facebook/wav2vec2-large-960h-lv60-self", cache_dir=os.getenv("cache_dir", "model"))
-#model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-large-960h-lv60-self", cache_dir=os.getenv("cache_dir", "model"))
+#tokenizer = Wav2Vec2Tokenizer.from_pretrained("facebook/wav2vec2-large-960h-lv60-self", cache_dir=os.getenv("cache_dir", "../models"))
+#model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-large-960h-lv60-self", cache_dir=os.getenv("cache_dir", "../models"))
 
 # load model and tokenizer
 tokenizer = Wav2Vec2Tokenizer.from_pretrained(
-    "facebook/wav2vec2-base-960h", cache_dir=os.getenv("cache_dir", "model"))
+    "facebook/wav2vec2-base-960h", cache_dir=os.getenv("cache_dir", "../../models"))
 model = Wav2Vec2ForCTC.from_pretrained(
-    "facebook/wav2vec2-base-960h", cache_dir=os.getenv("cache_dir", "model"))
+    "facebook/wav2vec2-base-960h", cache_dir=os.getenv("cache_dir", "../../models"))
 
 audio_ds = [os.path.join(os.path.dirname(
     os.path.abspath(__file__)), 'data', 'sample.mp3'),

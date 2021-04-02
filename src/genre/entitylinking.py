@@ -2,11 +2,14 @@
 # @author Loreto Parisi (loretoparisi at gmail dot com)
 # Copyright (c) 2021 Loreto Parisi (loretoparisi at gmail dot com)
 
+import os
 import pickle
 from genre.trie import Trie
 
+cache_dir = os.getenv("cache_dir", "../../models")
+
 # load the prefix tree (trie)
-with open("../models/kilt_titles_trie_dict.pkl", "rb") as f:
+with open(os.path.join(cache_dir,"kilt_titles_trie_dict.pkl"), "rb") as f:
     trie = Trie.load_from_dict(pickle.load(f))
 
 from genre.hf_model import GENRE
@@ -79,6 +82,7 @@ out = model.sample(
 print(out)
 
 # A combiation of these constraints is also possible
+# candidate + mention constraint
 prefix_allowed_tokens_fn = get_prefix_allowed_tokens_fn(
     model,
     sentences,
@@ -98,6 +102,7 @@ out = model.sample(
 )
 print(out)
 
+# entity wikipedia link
 entity_spans = get_entity_spans(
     model,
     sentences,
