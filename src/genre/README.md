@@ -23,7 +23,7 @@ tar -xvzf hf_entity_disambiguation_blink.tar.gz
 tar -xvzf hf_entity_disambiguation_aidayago.tar.gz
 ```
 
-### Document Retieval
+### Document Retrieval
 KILT [hf_wikipage_retrieval](http://dl.fbaipublicfiles.com/GENRE/hf_wikipage_retrieval.tar.gz)
 ```
 cd models/

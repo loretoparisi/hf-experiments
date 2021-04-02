@@ -13,6 +13,9 @@ cache_dir = os.getenv("cache_dir", "../../models")
 
 
 # Example: End-to-End Entity Linking
+# WIKIPEDIA
+# model = GENRE.from_pretrained(os.path.join(cache_dir,"hf_e2e_entity_linking_wiki_abs")).eval()
+# WIKIPEDIA + AidaYago2
 model = GENRE.from_pretrained(os.path.join(cache_dir,"hf_e2e_entity_linking_aidayago")).eval()
 
 sentences = ["In 1921, Einstein received a Nobel Prize."]
