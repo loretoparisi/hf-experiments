@@ -18,9 +18,9 @@ from genre.utils import (
 
 cache_dir = os.getenv("cache_dir", "../../models")
 
+# Example: Custom End-to-End Entity Linking evaluation
 model = GENRE.from_pretrained(os.path.join(cache_dir,"hf_e2e_entity_linking_aidayago")).eval()
 
-# Example: Custom End-to-End Entity Linking evaluation
 '''
     We have some useful function to evaluate End-to-End Entity Linking predictions. 
     Let's suppose we have a Dict[str, str] with document IDs and text as well as the gold entites spans as a List[Tuple[str, int, int, str]] containing documentID, start offset, length and entity title respectively.
