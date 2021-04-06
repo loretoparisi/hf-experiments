@@ -16,10 +16,19 @@ Machine Learning Experiments with Hugging Face 🤗
 │   ├── sentiment
 │   ├── asr :new:
 │   ├── translation :new:
+│   ├── genre :new:
+│   ├── gpt_neo :new:
 │   └── summarization
 └── wheels
 └── models
 ```
+
+## Transformers
+We are up-to-date with the latest `transformers`, `Pytorch`, `tensorflow`:
+
+- transformers>=4.5.0
+- tensorflow>=2.4.1
+- torch>= 1.8.1
 
 ## How to build
 To build experiments run
@@ -44,6 +53,7 @@ The following experiments are supported
 - translation - text multiple languages translation :new:
 - summarization - text summarization
 - GENRE - Generative ENtity REtrieval :new:
+- gpt_neo - EleutherAI's replication of the GPT-3 :new:
 
 and `cache_dir_folder` is the directorty where to cache models files. See later about this.
 

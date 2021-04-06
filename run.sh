@@ -4,7 +4,7 @@
 # Copyright (c) 2020 Loreto Parisi (loretoparisi at gmail dot com)
 
 
-haystack='emotions sentiment summarization asr qa genre'
+haystack='emotions sentiment summarization asr qa genre gpt_neo'
 needle=$1
 cache_dir=$2
 
