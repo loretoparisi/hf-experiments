@@ -3,14 +3,14 @@
 # Copyright (c) 2021 Loreto Parisi (loretoparisi at gmail dot com)
 
 import os
-import pickle
 from genre.hf_model import GENRE
+from genre.trie import Trie
 from genre.entity_linking import get_end_to_end_prefix_allowed_tokens_fn_hf as get_prefix_allowed_tokens_fn
 from genre.utils import get_entity_spans_hf as get_entity_spans
+from genre.utils import get_entity_spans_finalize
 from genre.utils import get_markdown
 
 cache_dir = os.getenv("cache_dir", "../../models")
-
 
 # Example: End-to-End Entity Linking
 # WIKIPEDIA
@@ -108,3 +108,26 @@ entity_spans = get_entity_spans(
     }
 )
 print(get_markdown(sentences, entity_spans)[0])
+
+# entity wikipedia link + .sample to make predictions constraining using prefix_allowed_tokens_fn
+def _get_entity_spans(
+    model,
+    input_sentences,
+    prefix_allowed_tokens_fn,
+    redirections=None,
+):
+    output_sentences = model.sample(
+        input_sentences,
+        prefix_allowed_tokens_fn=prefix_allowed_tokens_fn,
+    )
+
+    output_sentences = [e[0]["text"] for e in output_sentences]
+   
+    return get_entity_spans_finalize(
+        input_sentences, output_sentences, redirections=redirections
+    )
+
+sentences = ["Tired of the lies? Tired of the spin? Are you ready to hear the hard-hitting truth in comprehensive, conservative, principled fashion? The Ben Shapiro Show brings you all the news you need to know in the most fast moving daily program in America. Ben brutally breaks down the culture and never gives an inch! Monday thru Friday."]
+prefix_allowed_tokens_fn = get_prefix_allowed_tokens_fn(model, sentences)
+entity_spans = _get_entity_spans( model, sentences, prefix_allowed_tokens_fn)
+print(get_markdown(sentences, entity_spans))
