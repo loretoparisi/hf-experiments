@@ -18,4 +18,5 @@ generator = pipeline('text-generation',
     tokenizer=tokenizer)
 
 # generate
-generator("The U.S. president was ", do_sample=True, min_length=50)
+out = generator("The U.S. president was ", do_sample=True, min_length=50)
+print(out)
