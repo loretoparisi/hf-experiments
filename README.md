@@ -36,12 +36,23 @@ To build experiments run
 ./build.sh
 ```
 
+### How to build GPU
+To build experiments with GPU run
+```bash
+./build.sh gpu
+```
+
 ## How to run
 To run an experiment run
 ```bash
-./run.sh [experiment_name] [cache_dir_folder]
+./run.sh [experiment_name] [gpu|cpu] [cache_dir_folder]
 ```
 
+## How to run GPU
+To run an experiment on GPU run
+```bash
+./run.sh [experiment_name] gpu [cache_dir_folder]
+```
 
 The `experiment_name` field is among the following supported experiment names:
 
@@ -71,6 +82,12 @@ root@d2f0e8a5ec76:/app# python src/asr/run.py
 
 NOTE.
 For preconfigured experiments, please run the `run.py` script from the main folder `/app`, as the cache directories are following that path, so like `python src/asr/run.py`
+
+### How to debug GPU
+To debug for GPU run
+```bash
+./debug.sh gpu
+```
 
 ## Dependencies
 Dependencies are defined in the `requirements.txt` file and currently are

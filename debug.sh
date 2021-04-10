@@ -5,12 +5,20 @@
 
 
 haystack='emotions sentiment summarization asr'
-cache_dir=$1
+gpu=$1
+cache_dir=$2
 
 if [ -z "$cache_dir" ]; then
     cache_dir=models
 fi
 
-docker run -e cache_dir=$cache_dir -v $(pwd):/app --rm -it hfexperiments bash
+if [ -z "$gpu" ]; 
+then
+    echo "Running cpu..."
+    docker run -e cache_dir=$cache_dir -v $(pwd):/app --rm -it hfexperiments bash
+else
+    echo "Running gpu..."
+    docker run -e cache_dir=$cache_dir -v $(pwd):/app --rm -it --gpus all hfexperimentsgpu bash
+fi
 
 

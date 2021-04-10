@@ -4,7 +4,7 @@
 # Copyright (c) 2020-2021 Loreto Parisi (loretoparisi at gmail dot com)
 #
 
-FROM python:3.7.4-slim-buster
+FROM pytorch/pytorch:1.8.0-cuda11.1-cudnn8-devel
 
 LABEL maintainer Loreto Parisi loretoparisi@gmail.com
 
