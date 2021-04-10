@@ -6,6 +6,7 @@ import os
 import torch
 from transformers import AutoTokenizer, AutoModel
 
+# "google/pegasus-xsum"
 tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn", 
     cache_dir=os.getenv("cache_dir", "../../models"))
 
