@@ -1,10 +1,13 @@
-# hf-experiments
-Machine Learning Experiments with Hugging Face 🤗
-
-## ASR
+# ASR
 Automatic Speech Recognition with Wav2vec. Supported pretrained HuggingFace models are `facebook/wav2vec2-large-960h-lv60-self` and `facebook/wav2vec2-base-960h`.
 
-### Example of output
+## How to run
+```
+pip install -r src/asr/requirements.txt
+python src/asr/run.py 
+```
+
+## Example of output
 
 ```json
 [{

@@ -13,8 +13,11 @@ WORKDIR app
 COPY . .
 
 # system-wide dependencies
+# lam4-dev gcc needed for deepspeed
 RUN apt-get update && \
     apt-get install -y \
+    lam4-dev \
+    gcc \
     ffmpeg \
     curl \
     libsndfile1-dev

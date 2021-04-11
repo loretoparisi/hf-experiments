@@ -3,3 +3,5 @@ scikit-image
 pyannote.algorithms
 sidekit
 librosa
+mpi4py
+deepspeed
