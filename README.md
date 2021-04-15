@@ -15,9 +15,10 @@ Machine Learning Experiments with Hugging Face 🤗
 │   ├── emotions
 │   ├── sentiment
 │   ├── asr :new:
-│   ├── translation :new:
+│   ├── translation
 │   ├── genre :new:
 │   ├── gpt_neo :new:
+│   ├── audioseg :new:
 │   └── summarization
 └── wheels
 └── models
@@ -90,7 +91,7 @@ To debug for GPU run
 ```
 
 ## Dependencies
-Dependencies are defined in the `requirements.txt` file and currently are
+Glbal Dependencies are defined in the `requirements.txt` file and currently are
 
 ```bash
 torch
@@ -100,7 +101,8 @@ transformers
 soundfile
 ```
 
-These will install a number of dependant libraries that can be found in the `install.log`.
+### Experiment Dependencies
+Experiment level dependencies are specified in app folder `requirements.txt` file like `src/asr/requirements.txt` for `asr` experiment.
 
 ## Models files
 Where are models files saved? Models files are typically big. It's preferable to save them to a custom folder like an external HDD of a shared disk. For this reason a docker environment variable `cache_dir` can specified at run:
@@ -110,6 +112,14 @@ Where are models files saved? Models files are typically big. It's preferable to
 ```
 
 the `models` folder will be assigned to the `cache_dir` variable to be used as default alternative location to download pretrained models. A `os.getenv("cache_dir")` will be used to retrieve the environemnt variable in the code.
+
+### Additional models files
+Some experiments require additional models to be downloaed, not currently available through Huggingface model's hub, therefore a courtesy download script has been provided in the experiment's folder like, `genre/models.sh` for the following experiments:
+
+- `audioset`
+- `genre`
+
+We do not automatically download these files, so please run in debug mode with `debug.sh` and download the models manually, before running those experiments. The download shall be done once, and the models files will be placed in the models' cache folder specified by environment variable `cache_dir` as it happens for the Huggingface's Model Hub.
 
 ## Contributors
 

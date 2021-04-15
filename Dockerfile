@@ -10,24 +10,27 @@ LABEL maintainer Loreto Parisi loretoparisi@gmail.com
 
 WORKDIR app
 
-COPY . .
+COPY src .
 
 # system-wide dependencies
-# lam4-dev gcc needed for deepspeed
-RUN apt-get update && \
-    apt-get install -y \
-    lam4-dev \
-    gcc \
-    ffmpeg \
-    curl \
-    libsndfile1-dev
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    libsndfile1-dev \
+    curl && \
+    add-apt-repository ppa:jonathonf/ffmpeg-4 && \
+    apt-get install -y ffmpeg
 
 # system-wide python requriments
 COPY requirements.txt /tmp/requirements.txt
 RUN cat /tmp/requirements.txt | xargs -n 1 -L 1 pip3 install --no-cache-dir
 
-# app-wide python requriments
-RUN pip3 install -r src/asr/requirements.txt
-RUN pip3 install -r src/translation/requirements.txt
+# experiment-wide python requriments
+RUN pip3 install -r asr/requirements.txt
+RUN pip3 install -r translation/requirements.txt
+RUN pip3 install -r translation/requirements.txt
+RUN pip3 install -r genre/requirements.txt
+RUN pip3 install -r asr/requirements.txt
+RUN pip3 install -r audioset/requirements.txt
+RUN pip3 install -r audioseg/requirements.txt
 
 CMD ["bash"]

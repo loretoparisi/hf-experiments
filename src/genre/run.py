@@ -26,7 +26,7 @@ out = model.sample(
 print(out)
 
 # Example: Document Retieval
-model = GENRE.from_pretrained("../models/hf_wikipage_retrieval").eval()
+model = GENRE.from_pretrained(os.path.join(cache_dir,"hf_wikipage_retrieval")).eval()
 sentences = ["Einstein was a German physicist."]
 out=model.sample(
     sentences,

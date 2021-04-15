@@ -9,9 +9,14 @@ from pyannote.audio.pipelines import Segmentation
 from pyannote.audio.pipelines import VoiceActivityDetection
 from pyannote.audio.pipelines import OverlappedSpeechDetection
 
+cache_dir=os.getenv("cache_dir", "../../models")
+os.environ['PYANNOTE_CACHE'] = cache_dir
+
 # naive audio dataset
 audio_ds = [os.path.join(os.path.dirname(
-    os.path.abspath(__file__)), 'data', 'sample.wav')]
+    os.path.abspath(__file__)), 'data', 'sample.wav'),
+    os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), 'data', 'long_sample.wav')]
 
 inference = Inference("pyannote/segmentation")
 segmentation = inference(audio_ds[0])

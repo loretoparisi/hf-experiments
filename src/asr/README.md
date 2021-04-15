@@ -131,3 +131,6 @@ cutting /some_path/sample . mp3 to 30 seconds
 converting to wav
 wav file: /some_path/sample.wav
 ```
+
+### DeepSpeed
+We optionally provide [DeepSpeed](https://github.com/microsoft/DeepSpeed) support for GPU experiments only. There are addiotional requirements that will be installed in `requirements.deepspeed.txt`.

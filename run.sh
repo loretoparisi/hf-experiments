@@ -19,10 +19,10 @@ if [[ " $haystack " =~ .*\ $needle\ .* ]]; then
     if [ -z "$gpu" ]; 
     then
         echo "Running cpu..."
-        docker run -e cache_dir=$cache_dir -v $(pwd):/app --rm -it hfexperiments python src/${needle}/run.py
+        docker run -e cache_dir=$cache_dir -v $cache_dir:"/${cache_dir}" -v $(pwd):/app --rm -it hfexperiments python src/${needle}/run.py
     else
         echo "Running gpu..."
-        docker run -e cache_dir=$cache_dir -v $(pwd):/app --rm -it --gpus all hfexperimentsgpu python src/${needle}/run.py
+        docker run -e cache_dir=$cache_dir -v $cache_dir:"/${cache_dir}" -v $(pwd):/app --rm -it --gpus all hfexperimentsgpu python src/${needle}/run.py
     fi
 
 else
