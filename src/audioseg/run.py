@@ -4,12 +4,17 @@
 # HF: https://huggingface.co/pyannote/segmentation
 
 import os
+
+# pyannote
+from pyannote.audio import Model
 from pyannote.audio import Inference
 from pyannote.audio.pipelines import Segmentation
 from pyannote.audio.pipelines import VoiceActivityDetection
 from pyannote.audio.pipelines import OverlappedSpeechDetection
 
+# cache_dir supported on develop branch of pyannote only
 cache_dir=os.getenv("cache_dir", "../../models")
+# if you are using non develop branch of pyannote
 os.environ['PYANNOTE_CACHE'] = cache_dir
 
 # naive audio dataset
@@ -18,12 +23,13 @@ audio_ds = [os.path.join(os.path.dirname(
     os.path.join(os.path.dirname(
     os.path.abspath(__file__)), 'data', 'long_sample.wav')]
 
-inference = Inference("pyannote/segmentation")
+model = Model.from_pretrained("pyannote/segmentation", cache_dir=cache_dir)
+inference = Inference(model)
 segmentation = inference(audio_ds[0])
 # `segmentation` is a pyannote.core.SlidingWindowFeature
 # instance containing raw segmentation scores
 
-pipeline = Segmentation(segmentation="pyannote/segmentation")
+pipeline = Segmentation(segmentation=model)
 HYPER_PARAMETERS = {
   # onset/offset activation thresholds
   "onset": 0.5, "offset": 0.5,
@@ -40,13 +46,13 @@ segmentation = pipeline(audio_ds[0])
 print(segmentation)
 
 # Voice activity detection
-pipeline = VoiceActivityDetection(segmentation="pyannote/segmentation")
+pipeline = VoiceActivityDetection(segmentation=model)
 pipeline.instantiate(HYPER_PARAMETERS)
 vad = pipeline(audio_ds[0])
 print(vad)
 
 # Overlapped speech detection
-pipeline = OverlappedSpeechDetection(segmentation="pyannote/segmentation")
+pipeline = OverlappedSpeechDetection(segmentation=model)
 pipeline.instantiate(HYPER_PARAMETERS)
 osd = pipeline(audio_ds[0])
 print(osd)
