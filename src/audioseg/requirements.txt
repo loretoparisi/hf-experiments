@@ -1,1 +1,1 @@
-https://github.com/loretoparisi/pyannote-audio/archive/develop.zip
+https://github.com/pyannote/pyannote-audio/archive/develop.zip
