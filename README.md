@@ -19,6 +19,7 @@ Machine Learning Experiments with Hugging Face 🤗
 │   ├── genre :new:
 │   ├── gpt_neo :new:
 │   ├── audioseg :new:
+│   ├── colbert :new:
 │   └── summarization
 └── wheels
 └── models

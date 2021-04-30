@@ -4,7 +4,7 @@
 # Copyright (c) 2020-2021 Loreto Parisi (loretoparisi at gmail dot com)
 
 
-haystack='emotions sentiment summarization asr qa genre gpt_neo audioseg'
+haystack='emotions sentiment summarization asr qa genre gpt_neo audioseg colbert'
 needle=$1
 gpu=$2
 cache_dir=$3
