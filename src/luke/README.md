@@ -7,7 +7,7 @@ To run over `cpu` and save models to default model's cache dir (`./models/`)
 ./run.sh luke cpu
 ```
 
-or to run in debug mode:
+or to run in `debug` mode:
 
 ```
 ./debug.sh

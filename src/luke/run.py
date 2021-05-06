@@ -67,7 +67,8 @@ for i, start_pos in enumerate(word_start_positions):
 
 inputs = ner_tokenizer(text, entity_spans=entity_spans, return_tensors="pt")
 outputs = ner_model(**inputs)
-predicted_class_idx = int(outputs.logits[0].argmax())
+logits = outputs.logits
+predicted_class_idx = logits.argmax(-1).item()
 print("Predicted class:", ner_model.config.id2label[predicted_class_idx])
 
 # Example 5: LUKE large finetuned 
