@@ -16,16 +16,31 @@ Machine Learning Experiments with Hugging Face's (HF) [transformers](https://git
 │   ├── sentiment
 │   ├── asr
 │   ├── translation
-│   ├── genre :new:
-│   ├── gpt_neo :new:
-│   ├── audioseg :new:
-│   ├── colbert :new:
-│   ├── luke :new:
-│   ├── msmarco :new:
+│   ├── genre
+│   ├── gpt_neo
+│   ├── audioseg
+│   ├── colbert
+│   ├── luke
+│   ├── msmarco
 │   └── summarization
 └── wheels
 └── models
 ```
+
+## Experiments
+The following experiments are supported
+
+- emotions - emotions detection
+- sentiment - sentiment analysis
+- asr - automatic speech recognition
+- translation - text multiple languages translation
+- summarization - text summarization
+- GENRE - Generative ENtity REtrieval :new:
+- gpt_neo - EleutherAI's replication of the GPT-3 :new:
+- audioseg - Pyannote audio segmentation and speaker diarization :new:
+- colbert - Model is based on ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT :new:
+- luke - LUKE is a RoBERTa model that does named entity recognition, extractive and cloze-style question answering, entity typing, and relation classification :new:
+- msmarco - Sentence BERT's MSMarco for Semantic Search and Retrieve & Re-Rank :new:
 
 ## Libraries
 We are up-to-date with the latest `transformers`, `Pytorch`, `tensorflow` and `Keras` models, and we also provide most common ML libraries:
@@ -74,23 +89,7 @@ To run an experiment on GPU run
 ./run.sh [experiment_name] gpu [cache_dir_folder]
 ```
 
-The `experiment_name` field is among the following supported experiment names:
-
-## Experiments
-The following experiments are supported
-- emotions - emotions detection
-- sentiment - sentiment analysis
-- asr - automatic speech recognition
-- translation - text multiple languages translation
-- summarization - text summarization
-- GENRE - Generative ENtity REtrieval :new:
-- gpt_neo - EleutherAI's replication of the GPT-3 :new:
-- audioseg - Pyannote audio segmentation and speaker diarization :new:
-- colbert - Model is based on ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT :new:
-- luke - LUKE is a RoBERTa model that does named entity recognition, extractive and cloze-style question answering, entity typing, and relation classification :new:
-- msmarco - Sentence BERT's MSMarco for Semantic Search and Retrieve & Re-Rank :new:
-
-while the `cache_dir_folder` parameter is the directorty where to cache models files. See later about this.
+The `experiment_name` field is among the following supported experiment names, while the `cache_dir_folder` parameter is the directorty where to cache models files. See later about this.
 
 ## How to debug
 To debug the code, without running any experiment
