@@ -27,7 +27,7 @@ Machine Learning Experiments with Hugging Face's (HF) [transformers](https://git
 └── models
 ```
 
-## Transformers
+## Libraries
 We are up-to-date with the latest `transformers`, `Pytorch`, `tensorflow` and `Keras` models, and we also provide most common ML libraries:
 
 ```
@@ -81,14 +81,14 @@ The following experiments are supported
 - emotions - emotions detection
 - sentiment - sentiment analysis
 - asr - automatic speech recognition
-- translation - text multiple languages translation :new:
+- translation - text multiple languages translation
 - summarization - text summarization
 - GENRE - Generative ENtity REtrieval :new:
 - gpt_neo - EleutherAI's replication of the GPT-3 :new:
 - audioseg - Pyannote audio segmentation and speaker diarization :new:
 - colbert - Model is based on ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT :new:
 - luke - LUKE is a RoBERTa model that does named entity recognition, extractive and cloze-style question answering, entity typing, and relation classification :new:
-- msmarch - Sentence BERT's MSMarco for Semantic Search and Retrieve & Re-Rank :new:
+- msmarco - Sentence BERT's MSMarco for Semantic Search and Retrieve & Re-Rank :new:
 
 while the `cache_dir_folder` parameter is the directorty where to cache models files. See later about this.
 
