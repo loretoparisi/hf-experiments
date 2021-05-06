@@ -1,0 +1,6 @@
+torch
+tensorflow
+keras
+sentencepiece
+soundfile
+https://github.com/huggingface/transformers/archive/master.zip

@@ -20,6 +20,7 @@ Machine Learning Experiments with Hugging Face 🤗
 │   ├── gpt_neo :new:
 │   ├── audioseg :new:
 │   ├── colbert :new:
+│   ├── luke :new:
 │   └── summarization
 └── wheels
 └── models
@@ -67,8 +68,11 @@ The following experiments are supported
 - summarization - text summarization
 - GENRE - Generative ENtity REtrieval :new:
 - gpt_neo - EleutherAI's replication of the GPT-3 :new:
+- audioseg - Pyannote audio segmentation and speaker diarization
+- colbert - Model is based on ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT. 
+- luke - LUKE is a RoBERTa model that does named entity recognition, extractive and cloze-style question answering, entity typing, and relation classification.
 
-and `cache_dir_folder` is the directorty where to cache models files. See later about this.
+while the `cache_dir_folder` parameter is the directorty where to cache models files. See later about this.
 
 ## How to debug
 To debug the code, without running any experiment
@@ -100,6 +104,14 @@ tensorflow
 keras
 transformers
 soundfile
+```
+
+### Dev dependencies
+Due to high rate of :new: models pushed to the Huggingface models hub, we provide a `requirements-dev.txt` in order to install the latest `master` branch of `transformers`:
+
+```
+./debug.sh
+pip install -r requirements-dev.txt
 ```
 
 ### Experiment Dependencies
