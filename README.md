@@ -27,11 +27,27 @@ Machine Learning Experiments with Hugging Face 🤗
 ```
 
 ## Transformers
-We are up-to-date with the latest `transformers`, `Pytorch`, `tensorflow`:
+We are up-to-date with the latest `transformers`, `Pytorch`, `tensorflow` and `Keras` models, and we also provide most common ML libraries:
 
-- transformers>=4.5.0
-- tensorflow>=2.4.1
-- torch>= 1.8.1
+```
+Package                 Version     
+----------------------- ------------
+transformers            4.5.1
+tokenizers              0.10.2 
+torch                   1.8.1
+tensorflow              2.4.1
+Keras                   2.4.3
+pytorch-lightning       1.2.10
+numpy                   1.19.5
+tensorboard             2.4.1
+sentencepiece           0.1.95
+pyannote.core           4.1
+librosa                 0.8.0
+matplotlib              3.4.1
+pandas                  1.2.4 
+scikit-learn            0.24.2
+scipy                   1.6.3 
+```
 
 ## How to build
 To build experiments run
@@ -103,6 +119,7 @@ torch
 tensorflow
 keras
 transformers
+sentencepiece
 soundfile
 ```
 

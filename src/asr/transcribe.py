@@ -6,7 +6,7 @@
 from transformers import Wav2Vec2Tokenizer, Wav2Vec2ForCTC
 import torch
 import librosa
-import os
+import os,json
 
 # facebook/wav2vec2-large-960h-lv60-self
 # facebook/wav2vec2-large-xlsr-53-italian
@@ -28,8 +28,6 @@ def trace_mem(nframe=6,top=8):
         tracemalloc.start(nframe)
         return {}
     else:
-        # stop tracing
-        tracemalloc.stop()
         # read traced memory alloc
         current_mem, peak_mem = tracemalloc.get_traced_memory()
         overhead = tracemalloc.get_tracemalloc_memory()
@@ -56,6 +54,9 @@ def trace_mem(nframe=6,top=8):
         data['summary'] = summary
         data['traceback'] = out_lines
 
+        # stop tracing
+        tracemalloc.stop()
+
         return data
 
 # toy audio dataset
@@ -65,10 +66,11 @@ audio_ds = [os.path.join(os.path.dirname(
         os.path.abspath(__file__)), 'data', 'long_sample.mp3')]
 
 for audio in audio_ds[0:1]:
-    
+
     # load audio file
     y, _ = librosa.load(audio, sr=16000, mono=True)
 
+    # start memory tracing
     trace_mem(nframe=6, top=8)
 
     # tokenize audio
@@ -80,4 +82,6 @@ for audio in audio_ds[0:1]:
     t = tokenizer.batch_decode(predicted_ids)
     
     print("\n",t,"\n")
-    print("\n--------mem--------\n", trace_mem(nframe=6, top=8), "\n--------mem--------")
+
+    # dump memory and stop tracing
+    print("\n--------mem--------\n", json.dumps(trace_mem(nframe=6, top=8), indent=4), "\n--------mem--------")
