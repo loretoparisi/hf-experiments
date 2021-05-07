@@ -67,9 +67,11 @@ for i, start_pos in enumerate(word_start_positions):
 
 inputs = ner_tokenizer(text, entity_spans=entity_spans, return_tensors="pt")
 outputs = ner_model(**inputs)
-logits = outputs.logits
-predicted_class_idx = logits.argmax(-1).item()
-print("Predicted class:", ner_model.config.id2label[predicted_class_idx])
+logits = outputs.logits # logits are of shape (1,15,5), because there are 15 possible entity spans and 5 classes
+predicted_class_indices = logits.argmax(-1).squeeze().tolist()
+for span, predicted_class_idx in zip(entity_spans, predicted_class_indices):
+  if predicted_class_idx != 0:
+    print(text[span[0]:span[1]], ner_model.config.id2label[predicted_class_idx])
 
 # Example 5: LUKE large finetuned 
 inputs = [
