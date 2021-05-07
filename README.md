@@ -1,5 +1,5 @@
 # hf-experiments
-Machine Learning Experiments with Hugging Face's (HF) [transformers](https://github.com/huggingface/transformers) 🤗
+Machine Learning (cool) Experiments with Hugging Face's (HF) [transformers](https://github.com/huggingface/transformers) 🤗
 
 ## What's inside
 
@@ -155,3 +155,4 @@ We do not automatically download these files, so please run in debug mode with `
 ## Contributors
 
 - [shoegazerstella](https://github.com/shoegazerstella)
+- [astariul](https://github.com/astariul)
