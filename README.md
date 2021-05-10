@@ -4,69 +4,26 @@ Machine Learning (cool) Experiments with Hugging Face's (HF) [transformers](http
 ![hf-experiments-128](https://user-images.githubusercontent.com/163333/117465228-c529e100-af51-11eb-92c4-2dca58b8f0f9.png)
 
 
-## What's inside
-
-```bash
-.
-├── Dockerfile
-├── README.md
-├── build.sh
-├── install.log
-├── requirements.txt
-├── run.sh
-├── src
-│   ├── emotions
-│   ├── sentiment
-│   ├── asr
-│   ├── translation
-│   ├── genre
-│   ├── gpt_neo
-│   ├── audioseg
-│   ├── colbert
-│   ├── luke
-│   ├── msmarco
-│   └── summarization
-└── wheels
-└── models
-```
-
-## Experiments
-The following experiments are supported
+## Huggingface Experiments
+The following experiments available through HF [models](https://huggingface.co/models) are supported:
 
 - emotions - emotions detection
 - sentiment - sentiment analysis
 - asr - automatic speech recognition
 - translation - text multiple languages translation
 - summarization - text summarization
-- GENRE - Generative ENtity REtrieval :new:
+- genre - Generative ENtity REtrieval :new:
 - gpt_neo - EleutherAI's replication of the GPT-3 :new:
 - audioseg - Pyannote audio segmentation and speaker diarization :new:
-- colbert - Model is based on ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT :new:
+- colbert - Model is based on ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT
 - luke - LUKE is a RoBERTa model that does named entity recognition, extractive and cloze-style question answering, entity typing, and relation classification :new:
 - msmarco - Sentence BERT's MSMarco for Semantic Search and Retrieve & Re-Rank :new:
+- bigbird - Google sparse-attention based transformer which extends Transformer based models to much longer sequences :new:
 
-## Libraries
-We are up-to-date with the latest `transformers`, `Pytorch`, `tensorflow` and `Keras` models, and we also provide most common ML libraries:
+### !Huggingface experiments
+We propose some additional experiments currently not avaiable on HF models' hub
 
-```
-Package                 Version     
------------------------ ------------
-transformers            4.5.1
-tokenizers              0.10.2 
-torch                   1.8.1
-tensorflow              2.4.1
-Keras                   2.4.3
-pytorch-lightning       1.2.10
-numpy                   1.19.5
-tensorboard             2.4.1
-sentencepiece           0.1.95
-pyannote.core           4.1
-librosa                 0.8.0
-matplotlib              3.4.1
-pandas                  1.2.4 
-scikit-learn            0.24.2
-scipy                   1.6.3 
-```
+- mlpvision - MLP Mixer and ResMLP models for Computer Vision based on Multi-Layer Perceptron :new:
 
 ## How to build
 To build experiments run
@@ -116,7 +73,29 @@ To debug for GPU run
 ```
 
 ## Dependencies
-Glbal Dependencies are defined in the `requirements.txt` file and currently are
+We are up-to-date with the latest `transformers`, `Pytorch`, `tensorflow` and `Keras` models, and we also provide most common ML libraries:
+
+```
+Package                 Version     
+----------------------- ------------
+transformers            4.5.1
+tokenizers              0.10.2 
+torch                   1.8.1
+tensorflow              2.4.1
+Keras                   2.4.3
+pytorch-lightning       1.2.10
+numpy                   1.19.5
+tensorboard             2.4.1
+sentencepiece           0.1.95
+pyannote.core           4.1
+librosa                 0.8.0
+matplotlib              3.4.1
+pandas                  1.2.4 
+scikit-learn            0.24.2
+scipy                   1.6.3 
+```
+
+Common Dependencies are defined in the `requirements.txt` file and currently are
 
 ```bash
 torch
