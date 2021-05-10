@@ -4,23 +4,17 @@
 
 import os
 import torch
-from datasets import load_dataset
-from transformers import pipeline
-from transformers import BigBirdPegasusForConditionalGeneration, AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import BigBirdModel, AutoTokenizer
 
-dataset = load_dataset("patrickvonplaten/scientific_papers_dummy", "arxiv",
+# by default its in `block_sparse` mode with num_random_blocks=3, block_size=64
+model = BigBirdModel.from_pretrained("google/bigbird-roberta-large", 
+    block_size=64, 
+    num_random_blocks=3,
     cache_dir=os.getenv("cache_dir", "../../models"))
-paper = dataset["validation"]["article"][1]
-
 tokenizer = AutoTokenizer.from_pretrained("google/bigbird-pegasus-large-arxiv",
     cache_dir=os.getenv("cache_dir", "../../models"))
-model = AutoModelForSeq2SeqLM.from_pretrained("google/bigbird-pegasus-large-arxiv",
-    cache_dir=os.getenv("cache_dir", "../../models"))
 
-summarizer = pipeline(
-    'summarization',
-    model=model,
-    tokenizer=tokenizer)
-
-abstract = summarizer(paper, truncation="longest_first")
-print(abstract)
+text = "Paris is the <mask> of France."
+encoded_input = tokenizer(text, return_tensors='pt')
+output = model(**encoded_input)
+print(output)
