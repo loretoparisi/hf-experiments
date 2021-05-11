@@ -10,11 +10,11 @@ import torch
 import torchvision.transforms as T
 
 # ResMLP
-from res_mlp_pytorch.res_mlp import ResMLP
+from res_mlp.res_mlp import ResMLP
 # MLP-Mixer
 from mlp_mixer.mlp_mixer import MLPMixer
 # Perceiver, General Perception with Iterative Attention
-from perceiver import Perceiver
+from perceiver.perceiver import Perceiver
 
 class LPCustomDataSet(torch.utils.data.Dataset):
     '''
@@ -125,16 +125,30 @@ parameters = filter(lambda p: p.requires_grad, perceiver_model.parameters())
 parameters = sum([np.prod(p.size()) for p in parameters]) / 1_000_000
 print('Perceiver trainable Parameters: %.3fM' % parameters)
 img = torch.randn(1, 224, 224, 3) # 1 imagenet image, pixelized
-perceiver_model(img) # (1, 1000)
+pred = perceiver_model(img) # (1, 1000)
+print("Perceiver:", pred.shape)
 
 batch_size = 2
+num_workers = 2
+
+# load local dataset
 my_dataset = LPCustomDataSet(os.path.join(os.path.dirname(
     os.path.abspath(__file__)), 'data'), transform=LPCustomDataSet.transform)
-train_loader = torch.utils.data.DataLoader(my_dataset , batch_size=batch_size, shuffle=False, 
-                               num_workers=4, drop_last=True, collate_fn=LPCustomDataSet.collate_fn)
+train_loader = torch.utils.data.DataLoader(my_dataset, 
+                                batch_size=batch_size,
+                                shuffle=True, 
+                                num_workers=num_workers, 
+                                drop_last=True,
+                                collate_fn=LPCustomDataSet.collate_fn)
+# model predict
 for idx, img in enumerate(train_loader):
+    # [1, 3, 224, 224]
     print(idx, img.shape)
     pred = res_model(img)
-    print("ResMLP pred:", pred.shape)
+    print(f"{res_model.__class__.__name__} pred:", pred.shape)
     pred = mixer_model(img)
-    print("MLPMixer pred:", pred.shape)
+    print(f"{mixer_model.__class__.__name__} pred:", pred.shape)
+    img = np.transpose(img,(0,3,2,1)) # [1, 3, 224, 224] -> [1, 224, 224, 3]
+    print(img.shape)
+    pred = perceiver_model(img)
+    print(f"{perceiver_model.__class__.__name__} pred:", pred.shape)

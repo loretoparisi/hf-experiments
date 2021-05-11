@@ -13,9 +13,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 
-# MLP models: ResMLP, MLPMixer
-from res_mlp_pytorch.res_mlp import ResMLP
+# ResMLP
+from res_mlp.res_mlp import ResMLP
+# MLP-Mixer
 from mlp_mixer.mlp_mixer import MLPMixer
+# Perceiver, General Perception with Iterative Attention
+from perceiver.perceiver import Perceiver
 
 def imshow(img,images_path):
     '''
@@ -48,10 +51,10 @@ transformResize = T.Compose([
 
 class CNNish(nn.Module):
     '''
-        Naive CNN network
+        Naive CNN-like network
     '''
     def __init__(self):
-        super(CNN, self).__init__()
+        super(CNNish, self).__init__()
 
         # FeedForward(dim, channel_dim, dropout)
         
@@ -89,7 +92,7 @@ class CNNish(nn.Module):
         x = self.fc3(x)
         return x
 
-def train(model, device, dataloader, cache_dir=''):
+def train(model, device, dataloader, num_epoch = 2, cache_dir=''):
     '''
         Naive image classification training code
     '''
@@ -97,7 +100,7 @@ def train(model, device, dataloader, cache_dir=''):
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(res_model.parameters(), lr=0.001, momentum=0.9)
 
-    for epoch in range(2):  # loop over the dataset multiple times
+    for epoch in range(num_epoch):  # loop over the dataset multiple times
 
         running_loss = 0.0
         for i, data in enumerate(dataloader, 0):
@@ -122,17 +125,19 @@ def train(model, device, dataloader, cache_dir=''):
                     (epoch + 1, i + 1, running_loss / 2000))
                 running_loss = 0.0
 
-    torch.save(model.state_dict(), os.path.join(cache_dir, 'cifar.pt'))
-    print('model training ended')
+    model_name = f'{model.__class__.__name__}_cifar.pt'
+    torch.save(model.state_dict(), os.path.join(cache_dir, model_name))
+    print(f'model saved as {model_name}')
 
 def predict(model, device, inputs, classes, cache_dir=''):
     '''
-        test trained model on test dataloader
+        predict images classes
     '''
     
     # load saved model
-    model.load_state_dict(torch.load(os.path.join(cache_dir, 'cifar.pt')))
-    print('model loaded')
+    model_name = f'{model.__class__.__name__}_cifar.pt'
+    model.load_state_dict(torch.load(os.path.join(cache_dir, model_name)))
+    print(f'model loaded from {model_name}')
 
     inputs  = inputs.to(device)
     print("Input:", inputs.shape)
@@ -155,14 +160,15 @@ def test(model, device, dataloader, classes, cache_dir=''):
     '''
     
     # load saved model
-    model.load_state_dict(torch.load(os.path.join(cache_dir, 'cifar.pt')))
-    print('model loaded')
+    model_name = f'{model.__class__.__name__}_cifar.pt'
+    model.load_state_dict(torch.load(os.path.join(cache_dir, model_name)))
+    print(f'model loaded from {model_name}')
 
     # prepare to count predictions for each class
     correct_pred = {classname: 0 for classname in classes}
     total_pred = {classname: 0 for classname in classes}
 
-    # again no gradients needed
+    # no gradients needed
     with torch.no_grad():
         for data in dataloader:
             inputs, labels = data
@@ -237,9 +243,31 @@ mixer_model = MLPMixer(in_channels=3,
 
 mixer_model.to(torch.device(device))
 
-# train model to device: cnn_model, mixer_model, res_model
-model = res_model
-train(model, device, trainloader, cache_dir=cache_dir)
+# Perceiver
+perceiver_model = Perceiver(
+    input_channels = 3,          # number of channels for each token of the input
+    input_axis = 2,              # number of axis for input data (2 for images, 3 for video)
+    num_freq_bands = 6,          # number of freq bands, with original value (2 * K + 1)
+    max_freq = 10.,              # maximum frequency, hyperparameter depending on how fine the data is
+    depth = 6,                   # depth of net
+    num_latents = 256,           # number of latents, or induced set points, or centroids. different papers giving it different names
+    latent_dim = 512,            # latent dimension
+    cross_heads = 1,             # number of heads for cross attention. paper said 1
+    latent_heads = 8,            # number of heads for latent self attention, 8
+    cross_dim_head = 64,
+    latent_dim_head = 64,
+    num_classes = 1000,          # output number of classes
+    attn_dropout = 0.,
+    ff_dropout = 0.,
+    weight_tie_layers = False,   # whether to weight tie layers (optional, as indicated in the diagram)
+    fourier_encode_data = True,  # whether to auto-fourier encode the data, using the input_axis given. defaults to True, but can be turned off if you are fourier encoding the data yourself
+    self_per_cross_attn = 2      # number of self attention blocks per cross attention
+)
+perceiver_model.to(torch.device(device))
+
+# train model to device: cnn_model, mixer_model, res_model, perceiver_model
+model = cnn_model
+train(model, device, trainloader, num_epoch = 2, cache_dir=cache_dir)
 
 # test trained model on testset
 test(model, device, testloader, classes, cache_dir=cache_dir)

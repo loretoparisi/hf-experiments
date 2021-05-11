@@ -12,7 +12,6 @@ The following experiments available through HF [models](https://huggingface.co/m
 - asr - automatic speech recognition
 - translation - text multiple languages translation
 - summarization - text summarization
-- genre - Generative ENtity REtrieval :new:
 - gpt_neo - EleutherAI's replication of the GPT-3 :new:
 - audioseg - Pyannote audio segmentation and speaker diarization :new:
 - colbert - Model is based on ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT
@@ -20,30 +19,27 @@ The following experiments available through HF [models](https://huggingface.co/m
 - msmarco - Sentence BERT's MSMarco for Semantic Search and Retrieve & Re-Rank :new:
 - bigbird - Google sparse-attention based transformer which extends Transformer based models to much longer sequences :new:
 
-### !Huggingface experiments
+### Not-Huggingface experiments
 We propose some additional experiments currently not avaiable on HF models' hub
 
-- mlpvision - MLP Mixer and ResMLP models for Computer Vision based on Multi-Layer Perceptron :new:
+- audioset - YamNet Image classification and VGGish Image embedding on AudioSet Youtube Corpus
+- genre - Generative ENtity REtrieval :new:
+- mlpvision - MLP Mixex, ResMLP, Perceiver models for Computer Vision :new:
 
 ## How to build
 To build experiments run
 ```bash
 ./build.sh
 ```
-
-### How to build GPU
 To build experiments with GPU run
 ```bash
 ./build.sh gpu
 ```
-
 ## How to run
 To run an experiment run
 ```bash
 ./run.sh [experiment_name] [gpu|cpu] [cache_dir_folder]
 ```
-
-## How to run GPU
 To run an experiment on GPU run
 ```bash
 ./run.sh [experiment_name] gpu [cache_dir_folder]
@@ -57,6 +53,11 @@ To debug the code, without running any experiment
 ./debug.sh
 root@d2f0e8a5ec76:/app# 
 ```
+To debug for GPU run
+```bash
+./debug.sh gpu
+```
+
 This will enter the running image `hfexperiments`. You can now run python scripts manually, like
 
 ```
@@ -65,12 +66,6 @@ root@d2f0e8a5ec76:/app# python src/asr/run.py
 
 NOTE.
 For preconfigured experiments, please run the `run.py` script from the main folder `/app`, as the cache directories are following that path, so like `python src/asr/run.py`
-
-### How to debug GPU
-To debug for GPU run
-```bash
-./debug.sh gpu
-```
 
 ## Dependencies
 We are up-to-date with the latest `transformers`, `Pytorch`, `tensorflow` and `Keras` models, and we also provide most common ML libraries:
@@ -131,6 +126,7 @@ Some experiments require additional models to be downloaed, not currently availa
 
 - `audioset`
 - `genre`
+- `megatron`
 
 We do not automatically download these files, so please run in debug mode with `debug.sh` and download the models manually, before running those experiments. The download shall be done once, and the models files will be placed in the models' cache folder specified by environment variable `cache_dir` as it happens for the Huggingface's Model Hub.
 
