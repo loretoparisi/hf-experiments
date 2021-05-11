@@ -20,6 +20,18 @@ from mlp_mixer.mlp_mixer import MLPMixer
 # LP: to png
 matplotlib.use('agg')
 
+def imshow(img,images_path):
+    '''
+        Each CIFAR-10 image is a relatively small 32 x 32 pixels in size. 
+        The images are in color so each pixel has three values for the red, green, and blue channel values. 
+        Therefore, each image has a total of 32 * 32 * 3 = 3072 values.
+    '''
+    img = img / 2 + 0.5     # unnormalize
+    npimg = img.numpy()
+    plt.imshow(np.transpose(npimg, (1, 2, 0)))
+    plt.savefig(images_path, bbox_inches='tight', dpi=300)
+    plt.close()
+
 # Image normalize
 transform = T.Compose(
     [T.ToTensor(),
@@ -36,33 +48,12 @@ transform256 = T.Compose([
             )
         ])
 
+# cache dir
 cache_dir = os.getenv("cache_dir", "../../models")
-
 # choose device
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-# Res MLP
-res_model = ResMLP(
-    image_size = 224,
-    patch_size = 16,
-    dim = 512,
-    depth = 12,
-    num_classes = 1000
-)
-res_model.to(torch.device(device))
-
-# MLP Mixer
-mixer_model = MLPMixer(in_channels=3, 
-                image_size=224, 
-                patch_size=16, 
-                num_classes=1000,
-                dim=512, 
-                depth=8, 
-                token_dim=256, 
-                channel_dim=2048)
-mixer_model.to(torch.device(device))
-
-class CNN(nn.Module):
+class CNNish(nn.Module):
     '''
         Naive CNN network
     '''
@@ -105,9 +96,6 @@ class CNN(nn.Module):
         x = self.fc3(x)
         return x
 
-cnn_model = CNN()
-cnn_model.to(torch.device(device))
-
 def train(model, device, dataloader, cache_dir=''):
     '''
         Naive image classification training code
@@ -144,7 +132,7 @@ def train(model, device, dataloader, cache_dir=''):
     torch.save(model.state_dict(), os.path.join(cache_dir, 'cifar.pt'))
     print('model training ended')
 
-def test(model, device, dataloader, cache_dir=''):
+def predict(model, device, inputs, classes, cache_dir=''):
     '''
         test trained model on test dataloader
     '''
@@ -153,41 +141,115 @@ def test(model, device, dataloader, cache_dir=''):
     model.load_state_dict(torch.load(os.path.join(cache_dir, 'cifar.pt')))
     print('model loaded')
 
-    dataiter = iter(dataloader)
-    images, labels = dataiter.next()
+    inputs  = inputs.to(device)
+    print("Input:", inputs.shape)
+    outputs = model(inputs)
+    print('model out:', outputs.shape)
 
-    for i, data in enumerate(dataloader, 0):
-        inputs, labels = data
-        inputs, labels = inputs.to(device), labels.to(device)
-        print("Input:", inputs.shape)
-        outputs = model(inputs)
-        print('model out:', outputs.shape)
-        if i == 1:
-            break
+    ########################################################################
+    # The outputs are energies for the 10 classes.
+    # The higher the energy for a class, the more the network
+    # thinks that the image is of the particular class.
+    # So, let's get the index of the highest energy:
+    _, predicted = torch.max(outputs, 1)
+    print('Predicted: ', ' '.join('%5s' % classes[predicted[j]]
+                            for j in range(4)))
 
-    # print labels
-    #print(' '.join('%5s' % classes[labels[j]] for j in range(4)))
+def test(model, device, dataloader, classes, cache_dir=''):
+    '''
+        test trained model on test dataloader and 
+        return accuracy by class
+    '''
+    
+    # load saved model
+    model.load_state_dict(torch.load(os.path.join(cache_dir, 'cifar.pt')))
+    print('model loaded')
 
-    #dataiter = iter(testloader)
-    #images, labels = dataiter.next()
-    #print('GroundTruth: ', ' '.join('%5s' % classes[labels[j]] for j in range(4)))
+    # prepare to count predictions for each class
+    correct_pred = {classname: 0 for classname in classes}
+    total_pred = {classname: 0 for classname in classes}
 
+    # again no gradients needed
+    with torch.no_grad():
+        for data in dataloader:
+            inputs, labels = data
+            inputs, labels = inputs.to(device), labels.to(device)
+            outputs = model(inputs)    
+            _, predictions = torch.max(outputs, 1)
+            # collect the correct predictions for each class
+            for label, prediction in zip(labels, predictions):
+                if label == prediction:
+                    correct_pred[classes[label]] += 1
+                total_pred[classes[label]] += 1
+
+    
+    # print accuracy for each class
+    for classname, correct_count in correct_pred.items():
+        accuracy = 100 * float(correct_count) / total_pred[classname]
+        print("Accuracy for class {:5s} is: {:.1f} %".format(classname, 
+                                                    accuracy))
 
 # training set
 training_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'training')
+batch_size = 4
+num_workers = 2
+
+'''
+. There are a total of 60,000 CIFAR-10 images divided into 6,000 each of 10 (hence the “10” in “CIFAR-10”) different objects: ‘plane’, ‘car’, ‘bird’, ‘cat’, ‘deer’, ‘dog’, ‘frog’, ‘horse’, ‘ship’, ‘truck’. There is also a CIFAR-100 dataset that has 100 different items.
+'''
 trainset = torchvision.datasets.CIFAR10(root=training_folder, train=True,
                                         download=True, transform=transform)
-trainloader = torch.utils.data.DataLoader(trainset, batch_size=4,
-                                          shuffle=True, num_workers=2)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size,
+                                          shuffle=True, num_workers=num_workers)
 # test set
 testset = torchvision.datasets.CIFAR10(root=training_folder, train=False,
                                        download=True, transform=transform)
-testloader = torch.utils.data.DataLoader(testset, batch_size=4,
-                                         shuffle=False, num_workers=2)
+testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size,
+                                         shuffle=False, num_workers=num_workers)
 # cifar classes
 classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
-# train model to device
-train(cnn_model, device, trainloader, cache_dir=cache_dir)
-test(cnn_model, device, testloader, cache_dir=cache_dir)
+
+cnn_model = CNNish()
+cnn_model.to(torch.device(device))
+
+# Res MLP
+res_model = ResMLP(
+    image_size = 32, # CIFAR10 image: 32 x 32 x 3 = 3072
+    patch_size = 16,
+    dim = 512,
+    depth = 12,
+    num_classes = len(classes)
+)
+res_model.to(torch.device(device))
+
+# MLP Mixer
+mixer_model = MLPMixer(in_channels=3, 
+                image_size=32, 
+                patch_size=16, 
+                num_classes=len(classes),
+                dim=512, 
+                depth=8, 
+                token_dim=256, 
+                channel_dim=2048)
+
+mixer_model.to(torch.device(device))
+
+# train model to device: cnn_model, mixer_model, res_model
+model = res_model
+train(model, device, trainloader, cache_dir=cache_dir)
+
+# test trained model on testset
+test(model, device, testloader, classes, cache_dir=cache_dir)
+
+# predict trained model on random images
+dataiter = iter(testloader)
+images, labels = dataiter.next()
+
+# show images
+images_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'images.png')
+imshow(torchvision.utils.make_grid(images), images_path)
+
+print('GroundTruth: ', ' '.join('%5s' % classes[labels[j]] for j in range(4)))
+predict(model, device, images, classes, cache_dir=cache_dir)
