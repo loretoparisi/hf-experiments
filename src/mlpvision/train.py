@@ -14,7 +14,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 # MLP models: ResMLP, MLPMixer
-from res_mlp_pytorch.res_mlp_pytorch import ResMLP
+from res_mlp_pytorch.res_mlp import ResMLP
 from mlp_mixer.mlp_mixer import MLPMixer
 
 def imshow(img,images_path):
@@ -195,12 +195,12 @@ training_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'trai
     ‘plane’, ‘car’, ‘bird’, ‘cat’, ‘deer’, ‘dog’, ‘frog’, ‘horse’, ‘ship’, ‘truck’. 
     There is also a CIFAR-100 dataset that has 100 different items.
 '''
-# training set
+# training set - CIFAR10
 trainset = torchvision.datasets.CIFAR10(root=training_folder, train=True,
                                         download=True, transform=transformNormalize)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size,
                                           shuffle=True, num_workers=num_workers)
-# test set
+# test set - CIFAR10
 testset = torchvision.datasets.CIFAR10(root=training_folder, train=False,
                                        download=True, transform=transformNormalize)
 testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size,
