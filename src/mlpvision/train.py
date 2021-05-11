@@ -13,12 +13,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 
-# MLP models
+# MLP models: ResMLP, MLPMixer
 from res_mlp_pytorch.res_mlp_pytorch import ResMLP
 from mlp_mixer.mlp_mixer import MLPMixer
-
-# LP: to png
-matplotlib.use('agg')
 
 def imshow(img,images_path):
     '''
@@ -28,17 +25,18 @@ def imshow(img,images_path):
     '''
     img = img / 2 + 0.5     # unnormalize
     npimg = img.numpy()
+    matplotlib.use('agg')
     plt.imshow(np.transpose(npimg, (1, 2, 0)))
     plt.savefig(images_path, bbox_inches='tight', dpi=300)
     plt.close()
 
 # Image normalize
-transform = T.Compose(
+transformNormalize = T.Compose(
     [T.ToTensor(),
      T.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 
 # Image resize 256
-transform256 = T.Compose([
+transformResize = T.Compose([
             T.Resize(224),
             T.CenterCrop(224),
             T.ToTensor(),
@@ -47,11 +45,6 @@ transform256 = T.Compose([
                 std=[0.229, 0.224, 0.225]
             )
         ])
-
-# cache dir
-cache_dir = os.getenv("cache_dir", "../../models")
-# choose device
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 class CNNish(nn.Module):
     '''
@@ -189,32 +182,40 @@ def test(model, device, dataloader, classes, cache_dir=''):
         print("Accuracy for class {:5s} is: {:.1f} %".format(classname, 
                                                     accuracy))
 
-# training set
-training_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'training')
+# cache dir
+cache_dir = os.getenv("cache_dir", "../../models")
+# choose device
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 batch_size = 4
 num_workers = 2
+training_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'training')
 
 '''
-. There are a total of 60,000 CIFAR-10 images divided into 6,000 each of 10 (hence the “10” in “CIFAR-10”) different objects: ‘plane’, ‘car’, ‘bird’, ‘cat’, ‘deer’, ‘dog’, ‘frog’, ‘horse’, ‘ship’, ‘truck’. There is also a CIFAR-100 dataset that has 100 different items.
+    There are a total of 60,000 CIFAR-10 images divided into 6,000 each of 10 (hence the “10” in “CIFAR-10”) different objects: 
+    ‘plane’, ‘car’, ‘bird’, ‘cat’, ‘deer’, ‘dog’, ‘frog’, ‘horse’, ‘ship’, ‘truck’. 
+    There is also a CIFAR-100 dataset that has 100 different items.
 '''
+# training set
 trainset = torchvision.datasets.CIFAR10(root=training_folder, train=True,
-                                        download=True, transform=transform)
+                                        download=True, transform=transformNormalize)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size,
                                           shuffle=True, num_workers=num_workers)
 # test set
 testset = torchvision.datasets.CIFAR10(root=training_folder, train=False,
-                                       download=True, transform=transform)
+                                       download=True, transform=transformNormalize)
 testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size,
                                          shuffle=False, num_workers=num_workers)
 # cifar classes
 classes = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
+# init models
 
+# CNN like
 cnn_model = CNNish()
 cnn_model.to(torch.device(device))
 
-# Res MLP
+# ResMLP
 res_model = ResMLP(
     image_size = 32, # CIFAR10 image: 32 x 32 x 3 = 3072
     patch_size = 16,
@@ -224,7 +225,7 @@ res_model = ResMLP(
 )
 res_model.to(torch.device(device))
 
-# MLP Mixer
+# MLP-Mixer
 mixer_model = MLPMixer(in_channels=3, 
                 image_size=32, 
                 patch_size=16, 
@@ -243,7 +244,7 @@ train(model, device, trainloader, cache_dir=cache_dir)
 # test trained model on testset
 test(model, device, testloader, classes, cache_dir=cache_dir)
 
-# predict trained model on random images
+# predict trained model on random images of batch_size
 dataiter = iter(testloader)
 images, labels = dataiter.next()
 
