@@ -50,7 +50,7 @@ class LPCustomDataSet(torch.utils.data.Dataset):
             Naive image resizer
         '''
         transform = T.Compose([
-            T.Resize(256),
+            T.Resize(224),
             T.CenterCrop(224),
             T.ToTensor(),
             T.Normalize(
@@ -62,7 +62,7 @@ class LPCustomDataSet(torch.utils.data.Dataset):
 
 # Res MLP
 res_model = ResMLP(
-    image_size = 256,
+    image_size = 224,
     patch_size = 16,
     dim = 512,
     depth = 12,
@@ -74,7 +74,7 @@ parameters = sum([np.prod(p.size()) for p in parameters]) / 1_000_000
 print('ResMLP trainable Parameters: %.3fM' % parameters)
 
 # input must have 256 channels
-img = torch.randn(1, 3, 256, 256)
+img = torch.randn(1, 3, 224, 224)
 pred = res_model(img) # (1, 1000)
 print("ResMLP:",pred.shape)
 
@@ -103,6 +103,7 @@ train_loader = torch.utils.data.DataLoader(my_dataset , batch_size=batch_size, s
                                num_workers=4, drop_last=True, collate_fn=LPCustomDataSet.collate_fn)
 for idx, img in enumerate(train_loader):
     print(idx, img.shape)
-    #pred = res_model(img) # (1, 1000)
-    pred = mixer_model(img) # (1, 1000)
-    print("MLPMixer:", pred.shape)
+    pred = res_model(img)
+    print("ResMLP pred:", pred.shape)
+    pred = mixer_model(img)
+    print("MLPMixer pred:", pred.shape)

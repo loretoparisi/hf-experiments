@@ -16,7 +16,7 @@
 """Inference demo for YAMNet."""
 from __future__ import division, print_function
 
-import sys
+import sys, os
 import json, codecs
 import numpy as np
 import resampy
@@ -30,10 +30,14 @@ import yamnet as yamnet_model
 def main(argv):
   assert argv, 'Usage: inference.py <wav file> <wav file> ...'
 
+  model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'yamnet.h5')
+  classes_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'yamnet_class_map.csv')
+  event_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'event.json')
+  
   params = yamnet_params.Params()
   yamnet = yamnet_model.yamnet_frames_model(params)
-  yamnet.load_weights('yamnet.h5')
-  yamnet_classes = yamnet_model.class_names('yamnet_class_map.csv')
+  yamnet.load_weights(model_path)
+  yamnet_classes = yamnet_model.class_names(classes_path)
 
   for file_name in argv:
     # Decode the WAV file.
@@ -68,7 +72,7 @@ def main(argv):
       item['value']=round(b[i], 6)
       pred.append(item)
     pred = sorted(pred, key=lambda x: x['value'], reverse=True)
-    json.dump(pred, codecs.open('./event.json', 'w', encoding='utf-8'), separators=(',', ':'), sort_keys=True, indent=4) ### this saves the array in .json format
+    json.dump(pred, codecs.open(event_path, 'w', encoding='utf-8'), separators=(',', ':'), sort_keys=True, indent=4) ### this saves the array in .json format
 
 if __name__ == '__main__':
   main(sys.argv[1:])

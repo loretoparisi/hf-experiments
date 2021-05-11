@@ -14,8 +14,9 @@ python src/audioset/yamnet/yamnet_test.py
 ```
 
 ## Run audioset VGGish experiments
+Run `python src/audioset/vggish/vggish_inference_demo.py` on a wav file like `src/audioset/data/sample.wav`
 ```
-python vggish_inference_demo.py ../data/sample.wav
+python src/audioset/vggish/vggish_inference_demo.py src/audioset/data/sample.wav
 [-0.4232218  -0.2633685  -0.04175735 -0.16365924 -0.3556757  -0.62043226
   -0.0738445   0.16782928 -0.7848264  -0.09092896 -0.06946495 -0.8430028
   -0.09650833  0.01110016 -0.09305321 -0.0768546  -0.22440544  0.783
@@ -201,8 +202,10 @@ feature_lists {
 ```
 
 ## Run audioset YamNet experiments
+Run script `python src/audioset/yamnet/inference.py` on a sample wav like `src/audioset/data/sample.wav`.
+
 ```
-python inference.py ../data/sample.wav
+python src/audioset/yamnet/inference.py src/audioset/data/sample.wav
 ../data/sample.wav :
   Speech      : 0.814
   Music       : 0.122

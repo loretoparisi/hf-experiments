@@ -46,6 +46,7 @@ Usage:
 
 from __future__ import print_function
 
+import os
 import numpy as np
 import six
 import soundfile
@@ -58,17 +59,20 @@ import vggish_slim
 
 flags = tf.app.flags
 
+vggish_model_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'vggish_model.ckpt')
+vggish_pca_params_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'vggish_pca_params.npz')
+
 flags.DEFINE_string(
     'wav_file', None,
     'Path to a wav file. Should contain signed 16-bit PCM samples. '
     'If none is provided, a synthetic sound is used.')
 
 flags.DEFINE_string(
-    'checkpoint', 'vggish_model.ckpt',
+    'checkpoint', vggish_model_path,
     'Path to the VGGish checkpoint file.')
 
 flags.DEFINE_string(
-    'pca_params', 'vggish_pca_params.npz',
+    'pca_params', vggish_pca_params_path,
     'Path to the VGGish PCA parameters file.')
 
 flags.DEFINE_string(
