@@ -10,7 +10,7 @@ LABEL maintainer Loreto Parisi loretoparisi@gmail.com
 
 WORKDIR app
 
-COPY . .
+COPY src .
 
 # system-wide dependencies
 # lam4-dev gcc needed for deepspeed

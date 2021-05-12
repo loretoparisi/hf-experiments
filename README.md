@@ -12,6 +12,7 @@ The following experiments available through HF [models](https://huggingface.co/m
 - asr - automatic speech recognition
 - translation - text multiple languages translation
 - summarization - text summarization
+- bert BERT Transformer: Masked Language Modeling, Next Sentence Prediction, Extractive Question Answering
 - gpt_neo - EleutherAI's replication of the GPT-3 :new:
 - audioseg - Pyannote audio segmentation and speaker diarization :new:
 - colbert - Model is based on ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT
