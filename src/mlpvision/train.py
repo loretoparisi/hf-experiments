@@ -192,7 +192,7 @@ def test(model, device, dataloader, classes, cache_dir=''):
 cache_dir = os.getenv("cache_dir", "../../models")
 # choose device
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-batch_size = 4
+batch_size = 16
 num_workers = 2
 training_folder = cache_dir
 
@@ -270,7 +270,7 @@ model = mixer_model
 model_name = f'{model.__class__.__name__}'
 print(f'using model class {model_name}')
 
-train(model, device, trainloader, num_epoch = 2, cache_dir=cache_dir)
+train(model, device, trainloader, num_epoch = 4, cache_dir=cache_dir)
 
 # test trained model on testset
 test(model, device, testloader, classes, cache_dir=cache_dir)
