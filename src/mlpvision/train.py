@@ -194,7 +194,7 @@ cache_dir = os.getenv("cache_dir", "../../models")
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 batch_size = 4
 num_workers = 2
-training_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'training')
+training_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'training')
 
 '''
     There are a total of 60,000 CIFAR-10 images divided into 6,000 each of 10 (hence the “10” in “CIFAR-10”) different objects: 
