@@ -21,15 +21,14 @@ RUN apt-get update && apt-get install -y \
     apt-get install -y ffmpeg
 
 # system-wide python requriments
-COPY requirements.txt /tmp/requirements.txt
-RUN cat /tmp/requirements.txt | xargs -n 1 -L 1 pip3 install --no-cache-dir
+RUN pip3 install -r requirements-dev.txt
+
+# utils
+RUN pip3 install -r lpdutils/requirements.txt
 
 # experiment-wide python requriments
 RUN pip3 install -r asr/requirements.txt
-RUN pip3 install -r translation/requirements.txt
-RUN pip3 install -r translation/requirements.txt
 RUN pip3 install -r genre/requirements.txt
-RUN pip3 install -r asr/requirements.txt
 RUN pip3 install -r audioset/requirements.txt
 RUN pip3 install -r audioseg/requirements.txt
 RUN pip3 install -r mlpvision/requirements.txt

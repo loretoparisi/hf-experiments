@@ -1,2 +1,1 @@
 einops>=0.3
-natsort
