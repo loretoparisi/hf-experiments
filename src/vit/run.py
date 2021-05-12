@@ -13,9 +13,9 @@ sys.path.insert(0, os.path.join(BASE_PATH, '..'))
 from lpdutils.lpimagedataset import LPImageDataSet
 
 # to choose a different model by image size, patch size, and parameters number, see README
-feature_extractor = ViTFeatureExtractor.from_pretrained('google/vit-base-patch16-224',
+feature_extractor = ViTFeatureExtractor.from_pretrained('google/vit-large-patch16-224',
     cache_dir=os.getenv("cache_dir", "../../models"))
-model = ViTForImageClassification.from_pretrained('google/vit-base-patch16-224',
+model = ViTForImageClassification.from_pretrained('google/vit-large-patch16-224',
     cache_dir=os.getenv("cache_dir", "../../models"))
 
 
