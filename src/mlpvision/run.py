@@ -2,7 +2,7 @@
 # @author Loreto Parisi (loretoparisi at gmail dot com)
 # Copyright (c) 2021 Loreto Parisi (loretoparisi at gmail dot com)
 
-import os
+import os,sys
 import numpy as np
 import natsort
 from PIL import Image
@@ -16,54 +16,9 @@ from mlp_mixer.mlp_mixer import MLPMixer
 # Perceiver, General Perception with Iterative Attention
 from perceiver.perceiver import Perceiver
 
-class LPCustomDataSet(torch.utils.data.Dataset):
-    '''
-        Naive Torch Image Dataset Loader
-        with support for Image loading errors
-        and Image resizing
-    '''
-    def __init__(self, main_dir, transform):
-        self.main_dir = main_dir
-        self.transform = transform
-        all_imgs = os.listdir(main_dir)
-        self.total_imgs = natsort.natsorted(all_imgs)
-
-    def __len__(self):
-        return len(self.total_imgs)
-
-    def __getitem__(self, idx):
-        img_loc = os.path.join(self.main_dir, self.total_imgs[idx])
-        try:
-            image = Image.open(img_loc).convert("RGB")
-            tensor_image = self.transform(image)
-            return tensor_image
-        except:
-            pass
-            return None
-
-    @classmethod
-    def collate_fn(self, batch):
-        '''
-            Collate filtering not None images
-        '''
-        batch = list(filter(lambda x: x is not None, batch))
-        return torch.utils.data.dataloader.default_collate(batch)
-
-    @classmethod
-    def transform(self,img):
-        '''
-            Naive image resizer
-        '''
-        transform = T.Compose([
-            T.Resize(224),
-            T.CenterCrop(224),
-            T.ToTensor(),
-            T.Normalize(
-                mean=[0.485, 0.456, 0.406],
-                std=[0.229, 0.224, 0.225]
-            )
-        ])
-        return transform(img)
+BASE_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)))
+sys.path.insert(0, os.path.join(BASE_PATH, '..'))
+from lpdutils.lpimagedataset import LPImageDataSet
 
 # Res MLP
 res_model = ResMLP(
@@ -132,14 +87,14 @@ batch_size = 2
 num_workers = 2
 
 # load local dataset
-my_dataset = LPCustomDataSet(os.path.join(os.path.dirname(
-    os.path.abspath(__file__)), 'data'), transform=LPCustomDataSet.transform)
+my_dataset = LPImageDataSet(os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), '..', 'data', 'imagenet'), transform=LPImageDataSet.transform)
 train_loader = torch.utils.data.DataLoader(my_dataset, 
                                 batch_size=batch_size,
                                 shuffle=True, 
                                 num_workers=num_workers, 
                                 drop_last=True,
-                                collate_fn=LPCustomDataSet.collate_fn)
+                                collate_fn=LPImageDataSet.collate_fn)
 # model predict
 for idx, img in enumerate(train_loader):
     # [1, 3, 224, 224]

@@ -18,6 +18,7 @@ The following experiments available through HF [models](https://huggingface.co/m
 - luke - LUKE is a RoBERTa model that does named entity recognition, extractive and cloze-style question answering, entity typing, and relation classification :new:
 - msmarco - Sentence BERT's MSMarco for Semantic Search and Retrieve & Re-Rank :new:
 - bigbird - Google sparse-attention based transformer which extends Transformer based models to much longer sequences :new:
+- vit - Vision Transformer (ViT) model pre-trained on ImageNet :new:
 
 ### Not-Huggingface experiments
 We propose some additional experiments currently not avaiable on HF models' hub
