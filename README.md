@@ -26,6 +26,7 @@ We propose some additional experiments currently not avaiable on HF models' hub
 - audioset - YamNet Image classification and VGGish Image embedding on AudioSet Youtube Corpus
 - genre - Generative ENtity REtrieval :new:
 - mlpvision - MLP Mixex, ResMLP, Perceiver models for Computer Vision :new:
+- fewnerd - Few-NERD: Not Only a Few-shot NER Dataset
 
 ## How to build
 To build experiments run
