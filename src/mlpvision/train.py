@@ -192,9 +192,9 @@ def test(model, device, dataloader, classes, cache_dir=''):
 cache_dir = os.getenv("cache_dir", "../../models")
 # choose device
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-batch_size = 4
+batch_size = 16
 num_workers = 2
-training_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'data', 'training')
+training_folder = cache_dir
 
 '''
     There are a total of 60,000 CIFAR-10 images divided into 6,000 each of 10 (hence the “10” in “CIFAR-10”) different objects: 
@@ -266,8 +266,11 @@ perceiver_model = Perceiver(
 perceiver_model.to(torch.device(device))
 
 # train model to device: cnn_model, mixer_model, res_model, perceiver_model
-model = cnn_model
-train(model, device, trainloader, num_epoch = 2, cache_dir=cache_dir)
+model = mixer_model
+model_name = f'{model.__class__.__name__}'
+print(f'using model class {model_name}')
+
+train(model, device, trainloader, num_epoch = 4, cache_dir=cache_dir)
 
 # test trained model on testset
 test(model, device, testloader, classes, cache_dir=cache_dir)

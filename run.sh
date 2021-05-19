@@ -4,14 +4,14 @@
 # Copyright (c) 2020-2021 Loreto Parisi (loretoparisi at gmail dot com)
 
 
-haystack='emotions sentiment summarization asr qa genre gpt_neo audioseg colbert luke msmarco mlpvision bigbird silero_vad vit'
+haystack='emotions sentiment summarization asr qa genre gpt_neo audioseg colbert luke msmarco mlpvision bigbird silero_vad bert vit'
 needle=$1
 gpu=$2
 cache_dir=$3
 
 if [ -z "$cache_dir" ]; 
 then
-    cache_dir=models
+    cache_dir=$(pwd)/models
 fi
 
 if [[ " $haystack " =~ .*\ $needle\ .* ]]; then
@@ -19,10 +19,10 @@ if [[ " $haystack " =~ .*\ $needle\ .* ]]; then
     if [ -z "$gpu" ]; 
     then
         echo "Running cpu..."
-        docker run -e cache_dir=$cache_dir -v $cache_dir:"/${cache_dir}" -v $(pwd):/app --rm -it hfexperiments python src/${needle}/run.py
+        docker run -e cache_dir=/app/models -v $cache_dir:"/app/models" --rm -it hfexperiments python s${needle}/run.py
     else
         echo "Running gpu..."
-        docker run -e cache_dir=$cache_dir -v $cache_dir:"/${cache_dir}" -v $(pwd):/app --rm -it --gpus all hfexperimentsgpu python src/${needle}/run.py
+        docker run -e cache_dir=/workspace/app/models -v $cache_dir:"/workspace/app/models" --rm -it --gpus all hfexperimentsgpu python ${needle}/run.py
     fi
 
 else
