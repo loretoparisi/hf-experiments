@@ -395,6 +395,13 @@ class FewShotNERFramework:
                         query[k] = query[k].cuda()
                 label = torch.cat(query['label'], 0)
                 label = label.cuda()
+            else:
+                for k in support:
+                    if k != 'label' and k != 'sentence_num':
+                        support[k] = support[k]
+                        query[k] = query[k]
+                label = torch.cat(query['label'], 0)
+                label = label
 
             logits, pred = model(support, query, 
                     N_for_train, K, Q * N_for_train)
