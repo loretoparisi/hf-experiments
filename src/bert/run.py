@@ -18,6 +18,7 @@ model = BertForMaskedLM.from_pretrained('bert-base-uncased',
     return_dict = True)
 
 ### Example 1: Masked Language Modeling
+print('### Example 1: Masked Language Modeling')
 # Masked Language Modeling is the task of decoding a masked token in a sentence.
 text = "The capital of France, " + tokenizer.mask_token + ", contains the Eiffel Tower."
 
@@ -43,6 +44,7 @@ top_word = torch.argmax(mask_word, dim=1)
 print(tokenizer.decode(top_word))
 
 ### Example 2: Language Modeling
+print('### Example 2: Language Modeling')
 # the task of predicting the best word to follow or continue a sentence given all the words already in the sentence.
 model = BertLMHeadModel.from_pretrained('bert-base-uncased',
     return_dict=True, 
@@ -58,7 +60,8 @@ index = torch.argmax(softmax, dim = -1)
 x = tokenizer.decode(index)
 print(text + " " + x)
 
-### Example 4: Next Sentence Prediction
+### Example 3: Next Sentence Prediction
+print('### Example 3: Next Sentence Prediction')
 # Next Sentence Prediction is the task of predicting whether one sentence follows another sentence. 
 model = BertForNextSentencePrediction.from_pretrained('bert-base-uncased',
     cache_dir=os.getenv("cache_dir", "../../models"))
@@ -69,67 +72,8 @@ outputs = model(**encoding)[0]
 softmax = F.softmax(outputs, dim = 1)
 print(softmax)
 
-### Example 5: Extractive Question Answering
-# Extractive Question Answering is the task of answering a question given some context text by outputting the start and end indexes of where the answer lies in the context.
-
-model = BertForQuestionAnswering.from_pretrained('bert-base-uncased',
-    cache_dir=os.getenv("cache_dir", "../../models"))
-question = "What is the capital of France?"
-text = "The capital of France is Paris."
-
-# encoding = tokenizer.encode_plus(text=question,text_pair=text, add_special_tokens=True)
-# inputs = encoding['input_ids']  #Token embeddings
-# sentence_embedding = encoding['token_type_ids']  #Segment embeddings
-# tokens = tokenizer.convert_ids_to_tokens(inputs) #input tokens
-# start_scores, end_scores = model(input_ids=torch.tensor([inputs]), token_type_ids=torch.tensor([sentence_embedding]))
-# print(start_scores)
-# start_index = torch.argmax(start_scores)
-# end_index = torch.argmax(end_scores)
-# answer = ' '.join(tokens[start_index:end_index+1])
-
-#inputs = tokenizer.encode_plus(question, text, return_tensors='pt')
-# start, end = model(**inputs)
-# start_max = torch.argmax(F.softmax(start, dim = -1))
-# end_max = torch.argmax(F.softmax(end, dim = -1)) + 1 ## add one ##because of python list indexing
-# answer = tokenizer.decode(inputs["input_ids"][0][start_max : end_max])
-
-input_ids = tokenizer.encode(question, text)
-print('The input has a total of {:} tokens.'.format(len(input_ids)))
-# Search the input_ids for the first instance of the `[SEP]` token.
-sep_index = input_ids.index(tokenizer.sep_token_id)
-# The number of segment A tokens includes the [SEP] token istelf.
-num_seg_a = sep_index + 1
-# The remainder are segment B.
-num_seg_b = len(input_ids) - num_seg_a
-# Construct the list of 0s and 1s.
-segment_ids = [0]*num_seg_a + [1]*num_seg_b
-# There should be a segment_id for every input token.
-assert len(segment_ids) == len(input_ids)
-start_scores, end_scores = model(torch.tensor([input_ids]), # The tokens representing our input text.
-                                 token_type_ids=torch.tensor([segment_ids])) # The segment IDs to differentiate question from answer_text
-
-# Find the tokens with the highest `start` and `end` scores.
-answer_start = torch.argmax(start_scores)
-answer_end = torch.argmax(end_scores)
-
-# Combine the tokens in the answer and print it out.
-# BERT only needs the token IDs, but for the purpose of inspecting the 
-# tokenizer's behavior, let's also get the token strings and display them.
-tokens = tokenizer.convert_ids_to_tokens(input_ids)
-# Start with the first token.
-answer = tokens[answer_start]
-# Select the remaining answer tokens and join them with whitespace.
-for i in range(answer_start + 1, answer_end + 1):
-    # If it's a subword token, then recombine it with the previous token.
-    if tokens[i][0:2] == '##':
-        answer += tokens[i][2:]
-    # Otherwise, add a space then the token.
-    else:
-        answer += ' ' + tokens[i]
-print('Answer: "' + answer + '"')
-
-
-### Example 6: hidden states embedding
+### Example 4: hidden states embedding
+print('### Example 4: hidden states embedding')
 config = BertConfig.from_pretrained('bert-base-uncased',
     cache_dir=os.getenv("cache_dir", "../../models"), output_hidden_states=True)
 model = BertModel.from_pretrained('bert-base-uncased',
@@ -158,3 +102,64 @@ print(len(hidden_states))  # 13
 embedding_output = hidden_states[0]
 attention_hidden_states = hidden_states[1:]
 print("shape of embedding layer", embedding_output.size())  # 13
+
+
+### Example 5: Extractive Question Answering
+print('### Example 5: Extractive Question Answering')
+# Extractive Question Answering is the task of answering a question given some context text by outputting the start and end indexes of where the answer lies in the context.
+tokenizer = BertTokenizer.from_pretrained('bert-large-uncased-whole-word-masking-finetuned-squad',
+    cache_dir=os.getenv("cache_dir", "../../models"))
+model = BertForQuestionAnswering.from_pretrained('bert-large-uncased-whole-word-masking-finetuned-squad',
+    cache_dir=os.getenv("cache_dir", "../../models"))
+
+question = "What is the capital of France?"
+text = "The capital of France is Paris."
+
+inputs = tokenizer(question, text, add_special_tokens=True, return_tensors="pt")
+input_ids = inputs["input_ids"].tolist()[0] # the list of all indices of words in question + context
+
+text_tokens = tokenizer.convert_ids_to_tokens(input_ids) # Get the tokens for the question + context
+answer_start_scores, answer_end_scores = model(**inputs, return_dict=False) # or .values()
+
+answer_start = torch.argmax(answer_start_scores)  # Get the most likely beginning of answer with the argmax of the score
+answer_end = torch.argmax(answer_end_scores) + 1  # Get the most likely end of answer with the argmax of the score
+
+answer = tokenizer.convert_tokens_to_string(tokenizer.convert_ids_to_tokens(input_ids[answer_start:answer_end]))
+
+print(f"Question: {question}")
+print(f"Answer: {answer}")
+
+input_ids = tokenizer.encode(question, text)
+print('The input has a total of {:} tokens.'.format(len(input_ids)))
+# Search the input_ids for the first instance of the `[SEP]` token.
+sep_index = input_ids.index(tokenizer.sep_token_id)
+# The number of segment A tokens includes the [SEP] token istelf.
+num_seg_a = sep_index + 1
+# The remainder are segment B.
+num_seg_b = len(input_ids) - num_seg_a
+# Construct the list of 0s and 1s.
+segment_ids = [0]*num_seg_a + [1]*num_seg_b
+# There should be a segment_id for every input token.
+assert len(segment_ids) == len(input_ids)
+start_scores, end_scores = model(torch.tensor([input_ids]), # The tokens representing our input text.
+                                 token_type_ids=torch.tensor([segment_ids])).values() # The segment IDs to differentiate question from answer_text
+
+# Find the tokens with the highest `start` and `end` scores.
+answer_start = torch.argmax(start_scores)
+answer_end = torch.argmax(end_scores)
+
+# Combine the tokens in the answer and print it out.
+# BERT only needs the token IDs, but for the purpose of inspecting the 
+# tokenizer's behavior, let's also get the token strings and display them.
+tokens = tokenizer.convert_ids_to_tokens(input_ids)
+# Start with the first token.
+answer = tokens[answer_start]
+# Select the remaining answer tokens and join them with whitespace.
+for i in range(answer_start + 1, answer_end + 1):
+    # If it's a subword token, then recombine it with the previous token.
+    if tokens[i][0:2] == '##':
+        answer += tokens[i][2:]
+    # Otherwise, add a space then the token.
+    else:
+        answer += ' ' + tokens[i]
+print('Answer: "' + answer + '"')
