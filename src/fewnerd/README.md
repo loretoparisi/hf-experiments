@@ -5,9 +5,29 @@ Few-NERD is a large-scale, fine-grained manually annotated named entity recognit
 ## Dataset
 Download NER datasets
 ```
-./src/few-nerd/dataset.sh supervised
-./src/few-nerd/dataset.sh inter
-./src/few-nerd/dataset.sh intra
+./src/fewnerd/dataset.sh supervised
+./src/fewnerd/dataset.sh inter
+./src/fewnerd/dataset.sh intra
+```
+
+This will save the datasets into the `models` folder as defined by the env var `cache_dir`. The models folders loooks like
+
+```
+supervised
+.
+├── test-supervised.txt
+├── train-supervised.txt
+└── val-supervised.txt
+inter
+.
+├── test-inter.txt
+├── train-inter.txt
+└── val-inter.txt
+intra
+.
+├── test-intra.txt
+├── train-intra.txt
+└── val-intra.txt
 ```
 
 ## Train
