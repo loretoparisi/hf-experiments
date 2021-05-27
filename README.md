@@ -13,21 +13,22 @@ The following experiments available through HF [models](https://huggingface.co/m
 - translation - text multiple languages translation
 - summarization - text summarization
 - bert BERT Transformer: Masked Language Modeling, Next Sentence Prediction, Extractive Question Answering
-- gpt_neo - EleutherAI's replication of the GPT-3 :new:
-- audioseg - Pyannote audio segmentation and speaker diarization :new:
+- gpt_neo - EleutherAI's replication of the GPT-3 :fire:
+- audioseg - Pyannote audio segmentation and speaker diarization
 - colbert - Model is based on ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT
-- luke - LUKE is a RoBERTa model that does named entity recognition, extractive and cloze-style question answering, entity typing, and relation classification :new:
-- msmarco - Sentence BERT's MSMarco for Semantic Search and Retrieve & Re-Rank :new:
-- bigbird - Google sparse-attention based transformer which extends Transformer based models to much longer sequences :new:
+- luke - LUKE is a RoBERTa model that does named entity recognition, extractive and cloze-style question answering, entity typing, and relation classification :fire:
+- msmarco - Sentence BERT's MSMarco for Semantic Search and Retrieve & Re-Rank :fire:
+- bigbird - Google sparse-attention based transformer which extends Transformer based models to much longer sequences
 - vit - Vision Transformer (ViT) model pre-trained on ImageNet :new:
+- nrot - Numerical reasoning over text (NRoT) pretrained models (NT5) :new:
 
 ### Not-Huggingface experiments
 We propose some additional experiments currently not avaiable on HF models' hub
 
 - audioset - YamNet Image classification and VGGish Image embedding on AudioSet Youtube Corpus
-- genre - Generative ENtity REtrieval :new:
-- mlpvision - MLP Mixex, ResMLP, Perceiver models for Computer Vision :new:
-- fewnerd - Few-NERD: Not Only a Few-shot NER Dataset
+- genre - Generative ENtity REtrieval :fire:
+- mlpvision - MLP Mixex, ResMLP, Perceiver models for Computer Vision :new: :fire:
+- fewnerd - Few-NERD: Not Only a Few-shot NER Dataset :new: :fire:
 
 ## How to build
 To build experiments run
