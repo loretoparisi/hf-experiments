@@ -29,6 +29,7 @@ We propose some additional experiments currently not avaiable on HF models' hub
 - genre - Generative ENtity REtrieval :fire:
 - mlpvision - MLP Mixex, ResMLP, Perceiver models for Computer Vision :new: :fire:
 - fewnerd - Few-NERD: Not Only a Few-shot NER Dataset :new: :fire:
+- skweak - Weak supervision for NLP :new:
 
 ## How to build
 To build experiments run

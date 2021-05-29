@@ -84,6 +84,6 @@ doc = lf3(lf2(lf1(doc)))
 hmm = aggregation.HMM("hmm", ["PERSON", "DATE", "MONEY"])
 hmm.fit_and_aggregate([doc])
 
-
+# retrieve entities span
 entities_list = get_entities(doc, "hmm")
 print(json.dumps(entities_list, indent=2))
