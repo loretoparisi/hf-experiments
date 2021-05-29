@@ -1,0 +1,5 @@
+spacy >= 3.0.0
+hmmlearn >= 0.2.4
+pandas >= 0.23
+numpy >= 1.18
+skweak

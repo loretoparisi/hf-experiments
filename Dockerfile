@@ -32,5 +32,6 @@ RUN pip3 install -r genre/requirements.txt
 RUN pip3 install -r audioset/requirements.txt
 RUN pip3 install -r audioseg/requirements.txt
 RUN pip3 install -r mlpvision/requirements.txt
+RUN pip3 install -r skweak/requirements.txt
 
 CMD ["bash"]
