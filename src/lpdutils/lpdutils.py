@@ -33,7 +33,6 @@ class LPDUtils(object):
         
         # fasttext (tuple, ndarray)
         elif model_type=='fasttext' and isinstance(predictions, tuple) and isinstance(predictions[1], np.ndarray):
-            # (('__label__SPAM', '__label__VERIFIED'), array([1.00000739e+00, 1.26670984e-05]))
             # predictions are ordered to max prob
             int2label_dict = predictions[0]
             for (index, value) in enumerate(predictions[1]):
