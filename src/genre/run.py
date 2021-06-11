@@ -27,7 +27,9 @@ print(out)
 
 # Example: Document Retieval
 model = GENRE.from_pretrained(os.path.join(cache_dir,"hf_wikipage_retrieval")).eval()
-sentences = ["Einstein was a German physicist."]
+sentences = [
+    "Marc Márquez is a Spanish Grand Prix motorcycle road racer"
+]
 out=model.sample(
     sentences,
     prefix_allowed_tokens_fn=lambda batch_id, sent: trie.get(sent.tolist()),

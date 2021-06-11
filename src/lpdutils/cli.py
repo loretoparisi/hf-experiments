@@ -2,8 +2,18 @@
 # @author Loreto Parisi (loretoparisi at gmail dot com)
 # Copyright (c) 2021 Loreto Parisi (loretoparisi at gmail dot com)
 
+import os, sys, errno
 from typing import List, Union, Dict, Any, Optional, Iterable, Callable, Tuple
 import subprocess
+import shlex
+
+is_windows = sys.platform.startswith("win")
+def split_command(command: str) -> List[str]:
+    """Split a string command using shlex. Handles platform compatibility.
+    command (str) : The command to split
+    RETURNS (List[str]): The split command.
+    """
+    return shlex.split(command, posix=not is_windows)
 
 # https://github.com/explosion/spaCy/blob/master/spacy/util.py
 def run_command(
@@ -44,8 +54,7 @@ def run_command(
         # Indicates the *command* wasn't found, it's an error before the command
         # is run.
         raise FileNotFoundError(
-            Errors.E970.format(str_command=cmd_str, tool=cmd_list[0])
-        ) from None
+            errno.ENOENT, os.strerror(errno.ENOENT), cmd_list[0]) from None
     if ret.returncode != 0 and capture:
         message = f"Error running command:\n\n{cmd_str}\n\n"
         message += f"Subprocess exited with status {ret.returncode}"

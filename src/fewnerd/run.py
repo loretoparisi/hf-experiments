@@ -28,4 +28,12 @@ elif model_name == 'nnshot':
 elif model_name == 'structshot':
     model = NNShot(word_encoder, dot=False)
 
-model.load_state_dict(torch.load(os.path.join(cache_dir, model_name)))
+load_ckpt = os.path.join(cache_dir, model_name)
+state_dict = torch.load(load_ckpt)
+own_state = model.state_dict()
+for name, param in state_dict.items():
+    if name not in own_state:
+        print('ignore {}'.format(name))
+        continue
+    print('load {} from {}'.format(name, load_ckpt))
+    own_state[name].copy_(param)
