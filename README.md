@@ -7,20 +7,21 @@ Machine Learning (cool) Experiments 🔬 🤗 with Hugging Face's (HF) [transfor
 ## Huggingface Experiments
 The following experiments available through HF [models](https://huggingface.co/models) are supported:
 
-- emotions - emotions detection
-- sentiment - sentiment analysis
-- asr - automatic speech recognition
-- translation - text multiple languages translation
-- summarization - text summarization
-- bert BERT Transformer: Masked Language Modeling, Next Sentence Prediction, Extractive Question Answering
-- gpt_neo - EleutherAI's replication of the GPT-3 :fire:
-- audioseg - Pyannote audio segmentation and speaker diarization
-- colbert - Model is based on ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT
-- luke - LUKE is a RoBERTa model that does named entity recognition, extractive and cloze-style question answering, entity typing, and relation classification :fire:
-- msmarco - Sentence BERT's MSMarco for Semantic Search and Retrieve & Re-Rank :fire:
-- bigbird - Google sparse-attention based transformer which extends Transformer based models to much longer sequences
-- vit - Vision Transformer (ViT) model pre-trained on ImageNet :new:
+- zeroshot - NLI-based Zero Shot Text Classification (ZSL) :new:
 - nrot - Numerical reasoning over text (NRoT) pretrained models (NT5) :new:
+- vit - Vision Transformer (ViT) model pre-trained on ImageNet :new:
+- bigbird - Google sparse-attention based transformer which extends Transformer based models to much longer sequences
+- msmarco - Sentence BERT's MSMarco for Semantic Search and Retrieve & Re-Rank :fire:
+- luke - LUKE is a RoBERTa model that does named entity recognition, extractive and cloze-style question answering, entity typing, and relation classification :fire:
+- colbert - Model is based on ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT
+- audioseg - Pyannote audio segmentation and speaker diarization :fire:
+- asr - automatic speech recognition
+- gpt_neo - EleutherAI's replication of the GPT-3 :fire:
+- bert BERT Transformer: Masked Language Modeling, Next Sentence Prediction, Extractive Question Answering :fire:
+- summarization - text summarization
+- translation - text multiple languages translation
+- sentiment - sentiment analysis
+- emotions - emotions detection
 
 ### Not-Huggingface experiments
 We propose some additional experiments currently not avaiable on HF models' hub
