@@ -3,6 +3,7 @@
 # Copyright (c) 2021 Loreto Parisi (loretoparisi at gmail dot com)
 
 import os,sys
+import re
 import torch
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 from transformers import pipeline
@@ -42,9 +43,11 @@ predicted_score = scores[best_index]
 print(predicted_class, predicted_score)
 
 # example 2: multi-class
-candidate_labels = ['travel', 'cooking', 'dancing', 'exploration']
+sequence = "I like swimming at the seaside"
+candidate_labels = ['sports', 'traveling', 'summer', 'winter', 'politics']
 res = classifier(sequence, candidate_labels, multi_label=True)
-print(res)
+for index,label in enumerate(res["labels"]):
+    print(label, res["scores"][index])
 
 # example 3: hypothesis translation
 # default hypothesis template is ""This text is {}"". 
