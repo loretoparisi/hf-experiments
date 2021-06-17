@@ -4,9 +4,10 @@ Machine Learning (cool) Experiments 🔬 🤗 with Hugging Face's (HF) [transfor
 ![hf-experiments-128](https://user-images.githubusercontent.com/163333/117465228-c529e100-af51-11eb-92c4-2dca58b8f0f9.png)
 
 
-## Huggingface Experiments
+## 🤗 Huggingface 🔬 Experiments
 The following experiments available through HF [models](https://huggingface.co/models) are supported:
 
+- HuBERT: Self-supervised representation learning for speech recognition, generation, and compression :new:
 - zeroshot - NLI-based Zero Shot Text Classification (ZSL) :new:
 - nrot - Numerical reasoning over text (NRoT) pretrained models (NT5) :new:
 - vit - Vision Transformer (ViT) model pre-trained on ImageNet :new:
@@ -23,7 +24,7 @@ The following experiments available through HF [models](https://huggingface.co/m
 - sentiment - sentiment analysis
 - emotions - emotions detection
 
-### Not-Huggingface experiments
+### Not-Huggingface 🔬 Experiments
 We propose some additional experiments currently not avaiable on HF models' hub
 
 - audioset - YamNet Image classification and VGGish Image embedding on AudioSet Youtube Corpus

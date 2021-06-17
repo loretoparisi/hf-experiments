@@ -3,4 +3,6 @@ tensorflow
 keras
 sentencepiece
 soundfile
+librosa
+natsort
 https://github.com/huggingface/transformers/archive/master.zip

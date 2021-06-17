@@ -4,3 +4,5 @@ keras
 transformers
 sentencepiece
 soundfile
+librosa
+natsort
