@@ -6,7 +6,6 @@ import os
 import numpy as np
 import natsort
 import torch
-import librosa
 
 class LPAudioSet(torch.utils.data.Dataset):
     '''
@@ -23,13 +22,30 @@ class LPAudioSet(torch.utils.data.Dataset):
         return len(self.total_audios)
 
     def __getitem__(self, idx):
-        img_loc = os.path.join(self.main_dir, self.total_audios[idx])
         try:
-            y, _ = librosa.load(img_loc, sr=self.sr)
-            return y
+            audio_path = os.path.join(self.main_dir, self.total_audios[idx])
+            return self.read_audio(audio_path)
         except:
             pass
             return None
+
+    def read_audio(self, audio_path):
+        '''
+            read audio file
+            output shape is like [1, 960000]
+        '''
+        try:
+            import soundfile as sf
+            y, _ = sf.read(audio_path)
+            return y
+        except Exception as err:
+            try:
+                import librosa
+                y, _ = librosa.load(audio_path, sr=self.sr)
+                return y
+            except Exception as err:
+                pass
+                return None
 
     @classmethod
     def collate_fn(self, batch):
