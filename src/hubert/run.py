@@ -23,7 +23,7 @@ train_loader = torch.utils.data.DataLoader(my_dataset,
                                 collate_fn=LPAudioSet.collate_fn)
 for idx, audio in enumerate(train_loader):
     print(idx, audio.shape)
-sys.exit(0)
+#sys.exit(0)
 
 processor = Wav2Vec2Processor.from_pretrained("facebook/hubert-xlarge-ls960-ft"
     , cache_dir=os.getenv("cache_dir", "../../models"))
