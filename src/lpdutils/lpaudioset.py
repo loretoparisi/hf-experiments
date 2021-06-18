@@ -12,9 +12,11 @@ class LPAudioSet(torch.utils.data.Dataset):
         Naive Torch Audio Dataset Loader
         with support for MP3 and WAV
     '''
-    def __init__(self, main_dir, sr=16000):
+    def __init__(self, main_dir, sr=16000, channels=2):
         self.main_dir = main_dir
         self.sr=sr
+        self.channels=channels
+        self.mono=True if channels==2 else False
         all_audios = os.listdir(main_dir)
         self.total_audios = natsort.natsorted(all_audios)
 
@@ -36,12 +38,12 @@ class LPAudioSet(torch.utils.data.Dataset):
         '''
         try:
             import soundfile as sf
-            y, _ = sf.read(audio_path)
+            y, _ = sf.read(audio_path, channels=self.channels)
             return y
         except Exception as err:
             try:
                 import librosa
-                y, _ = librosa.load(audio_path, sr=self.sr)
+                y, _ = librosa.load(audio_path, sr=self.sr, mono=self.mono)
                 return y
             except Exception as err:
                 pass

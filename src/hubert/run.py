@@ -12,9 +12,10 @@ from lpdutils.lpaudioset import LPAudioSet
 
 # naive audio dataset
 sampling_rate = 16000
+channels = 1
 batch_size = 1
 my_dataset = LPAudioSet(os.path.join(os.path.dirname(
-    os.path.abspath(__file__)), '..', 'data', 'audio'), sr=sampling_rate)
+    os.path.abspath(__file__)), '..', 'data', 'audio'), sr=sampling_rate, channels=channels)
 train_loader = torch.utils.data.DataLoader(my_dataset, 
                                 batch_size=batch_size,
                                 shuffle=True, 
@@ -23,7 +24,7 @@ train_loader = torch.utils.data.DataLoader(my_dataset,
                                 collate_fn=LPAudioSet.collate_fn)
 for idx, audio in enumerate(train_loader):
     print(idx, audio.shape)
-#sys.exit(0)
+sys.exit(0)
 
 processor = Wav2Vec2Processor.from_pretrained("facebook/hubert-xlarge-ls960-ft"
     , cache_dir=os.getenv("cache_dir", "../../models"))
