@@ -4,7 +4,7 @@
 # Copyright (c) 2020-2021 Loreto Parisi (loretoparisi at gmail dot com)
 
 
-haystack='emotions sentiment summarization asr qa genre gpt_neo audioseg colbert luke msmarco mlpvision bigbird silero_vad bert vit nrot zeroshot hubert'
+haystack='emotions sentiment summarization asr qa genre gpt_neo audioseg colbert luke msmarco mlpvision bigbird silero_vad bert vit nrot zeroshot hubert gtp_j'
 needle=$1
 gpu=$2
 cache_dir=$3

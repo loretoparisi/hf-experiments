@@ -3,10 +3,13 @@ Machine Learning (cool) Experiments 🔬 🤗 with Hugging Face's (HF) [transfor
 
 ![hf-experiments-128](https://user-images.githubusercontent.com/163333/117465228-c529e100-af51-11eb-92c4-2dca58b8f0f9.png)
 
+## On 🔥 🔬 Experiments :new:
+If you are interested in **Text Generation**, we have just added **GPT-J 6B** that has a *PPL of 3.99* and *ACC of 69.7%*. We also provide **GPT-Neo* 1.3B, 2.7B as well as smaller 350M and 125M parameters. Check here for [evaluations](https://huggingface.co/EleutherAI/gpt-j-6B#evaluation-results).
 
 ## 🤗 Huggingface 🔬 Experiments
 The following experiments available through HF [models](https://huggingface.co/models) are supported:
 
+- GPT-J 6B: GPT-J 6B is a transformer model trained using Ben Wang's Mesh Transformer JAX. :new: :fire:
 - HuBERT: Self-supervised representation learning for speech recognition, generation, and compression :new:
 - zeroshot - NLI-based Zero Shot Text Classification (ZSL) :new:
 - nrot - Numerical reasoning over text (NRoT) pretrained models (NT5) :new:
