@@ -26,6 +26,7 @@ The following experiments available through HF [models](https://huggingface.co/m
 - translation - text multiple languages translation
 - sentiment - sentiment analysis
 - emotions - emotions detection
+- pokemon - Pokémnon 🐣 🐢 🦀 🍄 🦇🦂 generator based on russian RuDALL-E :new: :fire:
 
 ### Not-Huggingface 🔬 Experiments
 We propose some additional experiments currently not avaiable on HF models' hub
