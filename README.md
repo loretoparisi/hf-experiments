@@ -26,16 +26,17 @@ The following experiments available through HF [models](https://huggingface.co/m
 - translation - text multiple languages translation
 - sentiment - sentiment analysis
 - emotions - emotions detection
-- pokemon - Pokémnon 🐣 🐢 🦀 🍄 🦇🦂 generator based on russian RuDALL-E :new: :fire:
+- pokemon - Pokémon 🐣 🐢 🦀 🍄 🦇🦂 generator based on russian RuDALL-E :new: :fire:
 
 ### Not-Huggingface 🔬 Experiments
 We propose some additional experiments currently not avaiable on HF models' hub
 
 - audioset - YamNet Image classification and VGGish Image embedding on AudioSet Youtube Corpus
 - genre - Generative ENtity REtrieval :fire:
-- mlpvision - MLP Mixex, ResMLP, Perceiver models for Computer Vision :new: :fire:
-- fewnerd - Few-NERD: Not Only a Few-shot NER Dataset :new: :fire:
+- mlpvision - MLP Mixex, ResMLP, Perceiver models for Computer Vision
+- fewnerd - Few-NERD: Not Only a Few-shot NER Dataset :fire:
 - skweak - Weak supervision for NLP :new:
+- projected_gan - NeurIPS 2021 "Projected GANs Converge Faster" :new: :fire:
 
 ## How to build
 To build experiments run

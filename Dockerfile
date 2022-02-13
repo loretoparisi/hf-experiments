@@ -34,5 +34,6 @@ RUN pip3 install -r audioseg/requirements.txt
 RUN pip3 install -r mlpvision/requirements.txt
 RUN pip3 install -r skweak/requirements.txt
 RUN pip3 install -r pokemon/requirements.txt
+RUN pip3 install -r projected_gan/requirements.txt
 
 CMD ["bash"]

@@ -1,0 +1,498 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="de">
+<head>
+<title>download.sh - Welcome</title>
+<meta name="description" content="download.sh - Premium download" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta name="Author" content="QE GmbH & Co. KG" />
+<link rel="icon" href="/static/images/icons/favicon.ico" type="image/icon" />
+<link rel="Stylesheet" type="text/css" href="/static/css/smoothness/jquery-ui-1.8.4.custom.css" media="screen" />
+<link rel="Stylesheet" type="text/css" href="/static/css/style.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/static/css/magnific-popup.css" />
+<script type="text/javascript" src="/static/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.8.4.custom.min.js"></script>
+<script type="text/javascript" src="/static/js/plugins/jquery.cookies.js"></script>
+<script type="text/javascript" src="/static/js/plugins/jquery.equalheights.js"></script>
+<script type="text/javascript" src="/static/js/plugins/jquery.json-2.2.js"></script>
+<script type="text/javascript" src="/static/js/jquery.magnific-popup.js"></script>
+
+<script type="text/javascript">
+//<!--
+function reload_captcha(captcha_image) {
+    captcha_image.src = 'http://www.download.sh/captcha?q=' + Math.round(Math.random()*999999999);
+}
+
+function toggleDisplay(element, display_type) {
+    if(element.style.display == 'none') {
+        element.style.display = display_type || 'block';
+    }
+    else {
+        element.style.display = 'none';
+    }
+}
+
+function click_replace() {
+    var inputs = document.getElementsByTagName('input');
+    for(var i=0; i<inputs.length; i++) {
+        var inpt = inputs[i];
+        if(inpt.className == 'click_replace' && inpt.title) {
+            inpt.value = inpt.title;
+            inpt.onfocus = function () {
+                if(this.value == this.title) {
+                    this.value = '';
+                }
+            };
+            inpt.onblur = function () {
+                if(this.value == '') {
+                    this.value = this.title;
+                }
+            };
+        }
+    }
+}
+
+function show_hide_password(asterisk, plain) {
+    toggleDisplay(asterisk, 'inline');
+    toggleDisplay(plain, 'inline');
+}
+
+$(document).ready(function () {
+    $('.lang-select-other', $('.lang-select')).hide();
+    $('.lang-select-current', $('.lang-select')).toggle(
+        function () {
+            $('.lang-select-current', $('.lang-select')).addClass('lang-select-current-down');
+            $('.lang-select-other', $('.lang-select')).show();
+        },
+        function () {
+            $('.lang-select-other', $('.lang-select')).hide();
+            $('.lang-select-current', $('.lang-select')).removeClass('lang-select-current-down');
+        }
+    );
+
+    if( typeof jscheck == 'function' ) { 
+        $('input[name=JSCheck]').val('js_ok');
+        $('input[name=JSCheckTest]').val('js_ok');
+        $('input[name=JSCheck]').val(jscheck());
+        $('input[name=JSCheckTest]').val(jschecktest());
+    }
+
+    // Alternate Table
+    $("table.striped tr:odd").addClass("alternate");
+    
+    // Alternate SelectBox
+    //$("option.selectbox_ref-object_element_project:odd").addClass("alternate");
+    //$("option.selectbox_ref-object_element_project:odd").nextUntil('option').addClass("alternate");
+    //var $children = $("option.selectbox_ref-object_element_project:odd").nextUntil('option').children();
+    //$children.addClass("alternate");
+});
+
+function addLoadEvent(func) {
+    var oldonload = window.onload;
+    if(typeof window.onload != 'function') {
+        window.onload = func;
+    }
+    else {
+        window.onload = function() {
+            oldonload();
+            func();
+        }
+    }
+}
+
+addLoadEvent(click_replace);
+
+function writeEmail(user, host, tld, write) {
+    var elem = document.getElementById('email');
+
+    if(elem) {
+        elem.innerHTML = user + '@' + host + '.' + tld;
+    }
+    else {
+        if(write) {
+            document.write(user + '@' + host + '.' + tld);
+        }
+    }
+}
+
+//-->
+</script>
+</head>
+
+    <body style="overflow-y: scroll;">
+        <div id="wrapper">
+            <div class="slogan">
+                Premium download
+            </div>
+
+            <div id="imprint_line">
+
+                
+
+                <div class="lang-select" style="display:inline; float: none; text-align: left; position:relative;">
+                    <span class="lang-select-current">
+                        <a href="">
+                            <img src="/static/images/icons/flags/en.gif" class="inline_icon" alt="flag"/>
+                            English
+                        </a>
+                    </span>
+                    <div class="lang-select-other">
+                        
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="http://www.download.sh/language/de"><img src="/static/images/icons/flags/de.gif" width="16px" height="11px" class="inline_icon" alt="flag"/>&nbsp;Deutsch</a>
+                            
+                        
+                            
+                        
+                            
+                                <a href="http://www.download.sh/language/en"><img src="/static/images/icons/flags/en.gif" width="16px" height="11px" class="inline_icon" alt="flag"/>&nbsp;English</a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                    </div>
+                </div>
+&nbsp;&nbsp;
+                <div id="google_translate_element"></div>
+                <script type="text/javascript">
+                    function googleTranslateElementInit() {
+                        new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+                    }
+                </script>
+                <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+            
+            &nbsp;&nbsp;
+            <a href="http://www.download.sh/contact">CONTACT</a>
+            &nbsp;&nbsp; 
+            <a href="http://www.download.sh/tos">Terms</a>
+            &nbsp;&nbsp;
+            <a href="http://www.download.sh/revoke">DISCLAIMER</a>
+            &nbsp;&nbsp;
+            <a href="http://www.download.sh/tos#privacy_terms">PRIVACY POLICY</a>
+            &nbsp;&nbsp;
+            <a href="http://www.download.sh/imprint">IMPRINT</a>
+        </div>
+        <div id="main"><div id="headers">
+    <div id="header1">
+        <div id="logo">
+            <a href="http://www.download.sh/">
+                
+                <img src="/static/images/logo.gif" alt="download.sh - Premium download" />
+            </a>
+        </div>
+        <div id="login_form">
+            
+                <form 
+                    action="http://www.download.sh/login" 
+                    method="post" 
+                    name="header_login_form"
+                >
+                    <input 
+                        type="text" 
+                        name="email" 
+                        title="E-mail Address" 
+                        alt="E-mail Address" 
+                        class="click_replace"
+                    />
+                    <input 
+                        type="password" 
+                        name="password" 
+                        title="Password" 
+                        alt="Password" 
+                        class="click_replace"
+                    />
+                    <input 
+                        type="image" 
+                        src="/static/images/icons/door_in.png" 
+                        title="Login" 
+                        alt="Login" 
+                        style="border:0px;vertical-align:bottom;"
+                    />
+                </form>
+            
+        </div><ul id="tabs">        <li
+            
+        >
+            <a href="http://www.download.sh/news">
+                <img src="/static/images/icons/exclamation.png" width="16px" height="16px" alt="" class="inline_icon">News
+            </a>
+        </li>        <li
+            
+        >
+            <a href="http://www.download.sh/domains">
+                Domains
+            </a>
+        </li>        <li
+            
+        >
+            <a href="http://www.download.sh/hosting">
+                Hosting
+            </a>
+        </li>        <li
+            
+        >
+            <a href="http://www.download.sh/whois">
+                Whois
+            </a>
+        </li>        <li
+            
+        >
+            <a href="http://www.download.sh/faq">
+                Help
+            </a>
+        </li></ul>
+    </div>
+    <div id="header2">
+        <h1>Welcome</h1>
+    </div>
+    <div id='mytooltip'></div>
+</div>
+            <div id="body">
+<div id="sidebar">
+
+<div id="menu">
+    <ul>
+        <li class="depth_0">download.sh Navigation</li>
+        
+            
+            <li class="depth_1 current">
+                <a href="http://www.download.sh/">
+                    <img src="/static/images/icons/house.png" width="16px" height="16px" alt="menuitem"/>
+                    Home
+                </a>
+            </li>
+        
+            
+            <li class="depth_1">
+                <a href="http://www.download.sh/features">
+                    <img src="/static/images/icons/star.png" width="16px" height="16px" alt="menuitem"/>
+                    Features
+                </a>
+            </li>
+        
+            
+            <li class="depth_1">
+                <a href="http://www.download.sh/register">
+                    <img src="/static/images/icons/user_add.png" width="16px" height="16px" alt="menuitem"/>
+                    Join Now
+                </a>
+            </li>
+        
+            
+            <li class="depth_1">
+                <a href="http://www.download.sh/login">
+                    <img src="/static/images/icons/door_in.png" width="16px" height="16px" alt="menuitem"/>
+                    Login
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+
+
+    <br />
+    <div>
+        <ul>
+            <li class="depth_0">Top download.sh redirects</li>
+            
+            <li class="depth_1"><a href="http://lagu.download.sh/" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />lagu.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://lnllvjhjghjgjhg.download.sh/" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />lnllvjhjghjgjhg.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://fanghexie.download.sh/" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />fanghexie.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://com9.download.sh/" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />com9.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://pvpcim.download.sh/" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />pvpcim.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://homeprofitworld.download.sh/zhestkoe-gruppovoe.html" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />homeprofitworld.download.sh</a></li>
+            
+        </ul>
+    </div>
+
+
+    <br />
+    <div id="menu">
+        <ul>
+            <li class="depth_0"> New download.sh Domains</li>
+            
+            <li class="depth_1"><a href="http://www.jobs50.download.sh" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />jobs50.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://www.andromedablogsitev2.download.sh" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />andromedablogsitev2.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://www.homeprofitworld.download.sh" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />homeprofitworld.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://www.pdf.download.sh" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />pdf.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://www.mml5home.download.sh" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />mml5home.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://www.mcpe-daddy.download.sh" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />mcpe-daddy.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://www.exe.download.sh" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />exe.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://www.ayunami2000.download.sh" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />ayunami2000.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://www.mjaneyumiblogsite.download.sh" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />mjaneyumiblogsite.download.sh</a></li>
+            
+            <li class="depth_1"><a href="http://www.testing.download.sh" target="_blank"><img src="/static/images/icons/bullet_go.png" width="16px" height="16px" />testing.download.sh</a></li>
+            
+        </ul>
+    </div>
+
+
+
+</div>
+                <div id="content" style='min-height: 400px;'>                    
+
+
+
+
+<div class="box">
+    <h3>Welcome to download.sh Webhosting!</h3>
+    <div class="block info_block">  
+        <p>Here in our large online community, you can easily create your own website. Take advantage of the free business cards and forwarding’s, or book your own webpackage.</p>
+    </div>                     
+
+    <div class="blockwrapper blockwrapper_51">
+        <div class="block">    
+            <p><b>Business cards / Forwarding’s</b></p>
+            <ul>               
+                <li>Selection from nearly 500 Domains</li>
+                <li>completely free service</li>
+                <li>own business card with profile picture, social media links and more</li>
+                <li>Free forwarding to your existing domain</li>
+            </ul>              
+        </div>
+    </div>
+    <div class="blockwrapper blockwrapper_49">
+        <div class="block">    
+            <p><b>Webpakete</b></p>
+            <ul>
+                <li>Selection from nearly 500 Domains</li>
+                <li>already <b>from € 0.99</b> per month!</li>
+                <li>fast SSD hard drives</li>
+                <li>Dynamic content (MySQL and PHP)</li>
+                <li>multiple Email postboxes possible</li>
+                <li>ad-free</li>
+                <li>no setup fee</li>
+                <li><a href="http://www.download.sh/hosting">and more</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="blockwrapper blockwrapper_51">
+        <div class="block" style="text-align: center;">
+            
+                <a href='http://www.download.sh/register' class='gfx_btn' style="padding-right:15px; padding-left:15px; color:#FFF;">Registrate here</a>
+            
+        </div>
+    </div>
+    <div class="blockwrapper blockwrapper_49">
+        <div class="block" style="text-align: center;">
+            
+                <a href='http://www.download.sh/register' class='gfx_btn' style="padding-right:15px; padding-left:15px; color:#FFF;">Registrate here</a>
+            
+        </div>
+    </div>
+    <div class="clearer"></div>
+</div>
+
+
+<div class="box">
+    <div class="block">
+        download.sh webhosting is always fast and reliable. Free business cards and forwarding’s - Webspace starting at 0,99 € per month.
+    </div>
+</div>
+
+<div class="box">
+    <h3><img src="/static/images/icons/world.png" width="16px" height="16px" alt="world" />Check availability of your download.sh domain</h3>
+    <div class="block">
+        <form action="http://www.download.sh/domains" method="post">
+
+        www. <input name="label" type="text" />
+        . <select name="domain_id">
+<option value="104" selected="selected">download.sh</option>
+<option value="8">24.lc</option>
+</select>
+        <div class="form_submit">
+
+
+<input name="submit_domains" type="submit" value="Check" />
+</div>
+        </form>
+
+    </div>
+</div>
+
+                    <div class="clearer"></div>
+                    
+                </div>
+                <div class="clearer"></div>
+            </div>
+<div id="footer">&copy; 2022 download.sh - Premium download <br>
+<a href="https://www.filesharing.com">Filesharing</a> 
+<a href="https://www.shrunken.com">Shorten URL</a> 
+<a href="https://www.imagesharing.com">Imagesharing</a> 
+<a href="https://www.newschannel.com">Newschannel</a> 
+<a href="http://www.onlinegame.org">Free Games</a> 
+<a href="https://www.anonymizing.com">Anonymizing Proxy</a> 
+<a href="https://www.lookupserver.com">DNS-Lookup</a> 
+<a href="https://www.shopping2000.com">Shopping</a> 
+<a href="https://www.videoclip.org">Videoclip</a> 
+</div>
+        </div>
+    </div>
+
+</body>
+</html>
