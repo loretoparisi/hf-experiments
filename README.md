@@ -37,6 +37,7 @@ We propose some additional experiments currently not avaiable on HF models' hub
 - fewnerd - Few-NERD: Not Only a Few-shot NER Dataset :fire:
 - skweak - Weak supervision for NLP :new:
 - projected_gan - NeurIPS 2021 "Projected GANs Converge Faster" :new: :fire:
+- fasttext - FastText a library for efficient learning of word representations and sentence classification. :new: :fire:
 
 ## How to build
 To build experiments run

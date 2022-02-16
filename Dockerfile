@@ -14,6 +14,7 @@ COPY src .
 
 # system-wide dependencies
 RUN apt-get update && apt-get install -y \
+    build-essential \
     software-properties-common \
     libsndfile1-dev \
     curl && \
@@ -35,5 +36,6 @@ RUN pip3 install -r mlpvision/requirements.txt
 RUN pip3 install -r skweak/requirements.txt
 RUN pip3 install -r pokemon/requirements.txt
 RUN pip3 install -r projected_gan/requirements.txt
+RUN pip3 install -r fasttext/requirements.txt
 
 CMD ["bash"]
