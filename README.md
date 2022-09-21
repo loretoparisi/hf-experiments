@@ -10,10 +10,10 @@ If you are interested in **Text Generation**, we have just added **GPT-J 6B** th
 The following experiments available through HF [models](https://huggingface.co/models) are supported:
 
 - GPT-J 6B: GPT-J 6B is a transformer model trained using Ben Wang's Mesh Transformer JAX. :new: :fire:
-- HuBERT: Self-supervised representation learning for speech recognition, generation, and compression :new:
-- zeroshot - NLI-based Zero Shot Text Classification (ZSL) :new:
-- nrot - Numerical reasoning over text (NRoT) pretrained models (NT5) :new:
-- vit - Vision Transformer (ViT) model pre-trained on ImageNet :new:
+- HuBERT: Self-supervised representation learning for speech recognition, generation, and compression
+- zeroshot - NLI-based Zero Shot Text Classification (ZSL)
+- nrot - Numerical reasoning over text (NRoT) pretrained models (NT5)
+- vit - Vision Transformer (ViT) model pre-trained on ImageNet
 - bigbird - Google sparse-attention based transformer which extends Transformer based models to much longer sequences
 - msmarco - Sentence BERT's MSMarco for Semantic Search and Retrieve & Re-Rank :fire:
 - luke - LUKE is a RoBERTa model that does named entity recognition, extractive and cloze-style question answering, entity typing, and relation classification :fire:
@@ -37,7 +37,8 @@ We propose some additional experiments currently not avaiable on HF models' hub
 - fewnerd - Few-NERD: Not Only a Few-shot NER Dataset :fire:
 - skweak - Weak supervision for NLP :new:
 - projected_gan - NeurIPS 2021 "Projected GANs Converge Faster" :new: :fire:
-- fasttext - FastText a library for efficient learning of word representations and sentence classification. :new: :fire:
+- fasttext - FastText a library for efficient learning of word representations and sentence classification.
+- whisper, general-purpose speech recognition, multilingual speech recognition, speech translation, spoken language identification, and voice activity detection model :new:
 
 ## How to build
 To build experiments run
