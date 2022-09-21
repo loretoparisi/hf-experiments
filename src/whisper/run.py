@@ -15,7 +15,7 @@ print(f'running on {device} mps:{torch.backends.mps.is_available()} cuda:{torch.
 model_type = "small"
 model = load_model(model_type, device=device, download_root=os.getenv("cache_dir", "../../models"))
 # load audio and pad/trim it to fit 30 seconds
-audio = load_audio("data/simple.mp3")
+audio = load_audio("data/sample.mp3")
 audio = pad_or_trim(audio)
 
 # make log-Mel spectrogram and move to the same device as the model
@@ -45,7 +45,7 @@ print(result.text)
 # automatic speech recognition pipeline
 # the transcribe() method reads the entire file and processes the audio with a sliding 30-second window
 # performing autoregressive sequence-to-sequence predictions on each window.
-result = model.transcribe(audio="data/simple.mp3", verbose=True)
+result = model.transcribe(audio="data/sample.mp3", verbose=True)
 print(result["text"])
 
 # supported languages from translation to english
