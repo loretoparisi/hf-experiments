@@ -11,9 +11,11 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 device = 'mps' if torch.backends.mps.is_available() else device
 print(f'running on {device} mps:{torch.backends.mps.is_available()} cuda:{torch.cuda.is_available()}')
 
-model = load_model("base", device=device, download_root=os.getenv("cache_dir", "../../models"))
+#  tiny, base, small, medium e large
+model_type = "small"
+model = load_model(model_type, device=device, download_root=os.getenv("cache_dir", "../../models"))
 # load audio and pad/trim it to fit 30 seconds
-audio = load_audio("data/sample.mp3")
+audio = load_audio("data/simple.mp3")
 audio = pad_or_trim(audio)
 
 # make log-Mel spectrogram and move to the same device as the model
@@ -34,6 +36,7 @@ options = DecodingOptions(
     # use fp16 for most of the calculation
     fp16 = torch.cuda.is_available()
 )
+# decode first 30 seconds only!
 result = decode(model, mel, options)
 
 # print the recognized text
@@ -42,8 +45,8 @@ print(result.text)
 # automatic speech recognition pipeline
 # the transcribe() method reads the entire file and processes the audio with a sliding 30-second window
 # performing autoregressive sequence-to-sequence predictions on each window.
-#result = model.transcribe("data/sample.mp3")
-#print(result["text"])
+result = model.transcribe(audio="data/simple.mp3", verbose=True)
+print(result["text"])
 
 # supported languages from translation to english
 LANGUAGES = {
