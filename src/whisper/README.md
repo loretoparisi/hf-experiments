@@ -1,4 +1,4 @@
-## whisper
+## whisper experiments
 For further information please refer to [whisper](https://github.com/openai/whisper)
 ## Available models and languages
 

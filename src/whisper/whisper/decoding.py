@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, asdict
 from typing import Dict, List, Tuple, Iterable, Optional, Sequence, Union, TYPE_CHECKING
 
 import numpy as np
@@ -98,6 +98,9 @@ class DecodingOptions:
 
     # implementation details
     fp16: bool = True  # use fp16 for most of the calculation
+
+    def dict(self):
+        return {k:v for k, v in asdict(self).items()}
 
 
 @dataclass(frozen=True)

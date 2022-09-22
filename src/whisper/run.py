@@ -28,7 +28,7 @@ print(f"Detected language: {max(probs, key=probs.get)}")
 # decode the audio
 options = DecodingOptions(
     # whether to perform X->X "transcribe" or X->English "translate"
-    task = "transcribe",
+    task = "translate",
     # language that the audio is in; uses detected language if None
     language = None,
     # use <|notimestamps|> to sample text tokens only
@@ -45,7 +45,7 @@ print(result.text)
 # automatic speech recognition pipeline
 # the transcribe() method reads the entire file and processes the audio with a sliding 30-second window
 # performing autoregressive sequence-to-sequence predictions on each window.
-result = model.transcribe(audio="data/sample.mp3", verbose=True)
+result = model.transcribe(audio="data/sample.mp3", verbose=True, **options.dict())
 print(result["text"])
 
 # supported languages from translation to english
@@ -150,3 +150,16 @@ LANGUAGES = {
     "jw": "javanese",
     "su": "sundanese",
 }
+
+# LP: normalizers can be used as a post-processing step
+from whisper.normalizers import EnglishTextNormalizer
+from whisper.normalizers.english import EnglishNumberNormalizer, EnglishSpellingNormalizer
+
+spellingNormalizer = EnglishSpellingNormalizer()
+print(spellingNormalizer("mobilisation"))
+
+textNormalizer = EnglishTextNormalizer()
+print(textNormalizer("she's been like"))
+
+numberNormalizer = EnglishNumberNormalizer()
+print(numberNormalizer("five twenty four"))
