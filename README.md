@@ -35,10 +35,11 @@ We propose some additional experiments currently not avaiable on HF models' hub
 - genre - Generative ENtity REtrieval :fire:
 - mlpvision - MLP Mixex, ResMLP, Perceiver models for Computer Vision
 - fewnerd - Few-NERD: Not Only a Few-shot NER Dataset :fire:
-- skweak - Weak supervision for NLP :new:
-- projected_gan - NeurIPS 2021 "Projected GANs Converge Faster" :new: :fire:
+- skweak - Weak supervision for NLP :fire:
+- projected_gan - NeurIPS 2021 "Projected GANs Converge Faster"
 - fasttext - FastText a library for efficient learning of word representations and sentence classification.
-- whisper, general-purpose speech recognition, multilingual speech recognition, speech translation, spoken language identification, and voice activity detection model :new:
+- whisper, general-purpose speech recognition, multilingual speech recognition, speech translation, spoken language identification, and voice activity detection model :new: :fire:
+- alphatensor Discovering faster matrix multiplication algorithms with reinforcement learning. Nature 610 (2022) :new: :fire:
 
 ## How to build
 To build experiments run
