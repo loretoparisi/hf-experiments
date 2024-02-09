@@ -1,3 +1,3 @@
 nltk==3.6.6
 apex==0.9.10dev
-scikit_learn==0.24.1
+scikit_learn==1.0.1
